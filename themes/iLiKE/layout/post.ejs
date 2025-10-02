@@ -2,4 +2,26 @@
 <article class="post markdown-style">
   <%-page.content%>
 </article>
+
+<!-- Waline 评论区域 -->
+<div class="waline-comment-container" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee;">
+    <h3 style="margin-bottom: 1.5rem;">💬 评论</h3>
+    <div id="waline"></div>
+</div>
+
 <%-partial('partials/paginator') %>
+
+<!-- Waline 样式和脚本 -->
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
+<script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+    
+    init({
+        el: '#waline',
+        serverURL: 'https://waline-ashen-three.vercel.app', 
+        path: '<%= page.path %>',
+        comment: true,
+        pageview: true,
+        dark: 'auto'
+    });
+</script>

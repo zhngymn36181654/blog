@@ -56,8 +56,6 @@ post_asset_folder: true
    hexo server
    ```
 
-    修改文章，览器刷新查看效果。更换主题，图片就需要执行`hexo clean && hexo g`
-
 5. 正式部署
 
    ```
