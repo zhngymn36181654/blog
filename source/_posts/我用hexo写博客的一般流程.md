@@ -53,7 +53,7 @@ post_asset_folder: true
 4. 写好的博客文章，先在本地测试,检查文章的排版，图片是否正确。
 
    ```
-   hexo server
+   hexo clean && hexo g && hexo server
    ```
 
 5. 正式部署
