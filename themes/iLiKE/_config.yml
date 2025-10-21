@@ -6,6 +6,7 @@ language: zh-CN
 menu:
   Home: /
   Archives: /archives
+  Categories: /categories
   About: /about
 
 # Social
