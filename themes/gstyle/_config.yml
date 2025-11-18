@@ -23,11 +23,9 @@ widgets:
   - links
 links:
   - title: "GitHub"
-    url: http://www.github.com/wayou
-    intro: "码农之家"
-  - title: "微博"
-    url: http://www.weibo.com/liuwayong
-    intro: "twitter的本地化版本"
+    url: https://github.com/zhngymn36181654
+    intro: "GitHub"
+  
 
 # disqus_shortname: wayou
 duoshuo_shortname: wayouliu
