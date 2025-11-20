@@ -2,16 +2,18 @@
 ------------------------------------------------------------------- */
 /* line 6, /Users/mperez/Sites/smoothstate/source/stylesheets/pageTransitions.css.scss */
 .m-scene .scene_element {
-  -webkit-animation-duration: 0.25s;
-  animation-duration: 0.25s;
-  -webkit-transition-timing-function: ease-in;
-  transition-timing-function: ease-in;
+  -webkit-animation-duration: 0.45s;
+  animation-duration: 0.45s;
+  -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-animation-fill-mode: both;
-  animation-fill-mode: both; }
+  animation-fill-mode: both;
+  -webkit-transform-origin: center;
+  transform-origin: center; }
 /* line 17, /Users/mperez/Sites/smoothstate/source/stylesheets/pageTransitions.css.scss */
 .m-scene .scene_element--fadein {
-  -webkit-animation-name: fadeIn;
-  animation-name: fadeIn; }
+  -webkit-animation-name: fadeScaleIn;
+  animation-name: fadeScaleIn; }
 /* line 22, /Users/mperez/Sites/smoothstate/source/stylesheets/pageTransitions.css.scss */
 .m-scene .scene_element--fadeinup {
   -webkit-animation-name: fadeInUp;
@@ -37,8 +39,16 @@
   -webkit-animation-direction: alternate-reverse;
   animation-direction: alternate-reverse; }
 
-@media screen and (min-width: 768px) {
-  /* line 57, /Users/mperez/Sites/smoothstate/source/stylesheets/pageTransitions.css.scss */
-  .m-scene .scene_element--fadeinright-wide {
-    -webkit-animation-name: fadeInRight;
-    animation-name: fadeInRight; } }
+
+@keyframes fadeScaleIn {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 12px, 0) scale(0.985);
+    transform: translate3d(0, 12px, 0) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}

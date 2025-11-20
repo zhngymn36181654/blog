@@ -1,3 +1,19 @@
+#main .scene_element {
+    animation: contentFade 0.45s ease both;
+}
+
+
+
+@keyframes contentFade {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.99);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
 /*html structure following this spec http://oli.jp/2009/html5-structure1/*/
 
 /*material color pallete https://www.google.com/design/spec/style/color.html#color-color-palette*/
@@ -41,7 +57,6 @@ body {
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
-    font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     background-color: var(--bg-color);
     overflow-x: hidden;
@@ -263,7 +278,12 @@ article{
     margin-bottom: 24px;
     overflow: hidden;
     border: 1px solid var(--border-subtle);
+    transition: transform .25s ease, background-color .25s ease;
     /*margin: 25px 0;*/
+}
+article.card-entry:hover {
+    transform: translateY(-4px) scale(1.01);
+    background-color: var(--surface-2);
 }
 article iframe{
     width: 100%;
@@ -360,13 +380,28 @@ figure.highlight .gutter{
     text-overflow: ellipsis;
     padding-bottom: 0px;
 }
+.post-header .post-title span,
+.post-info span,
+.post-category a,
+.post-date,
+.read-more a {
+    transition: color .2s ease;
+}
 .post-abstract{
     padding: 10px 0;
 }
 .post-info{
-    /*display: flex;*/
-    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
     align-items: center;
+    font-size: 0.9rem;
+    color: var(--secondary-text-color);
+}
+.post-info > * {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
 .post-date{
     color: var(--secondary-text-color);
@@ -584,7 +619,7 @@ kbd {
     }
 
     .menu-wrapper a {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
     }
 
     /* 2. Post Card Compact */

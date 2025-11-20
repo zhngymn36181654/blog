@@ -5,7 +5,6 @@ $(function() {
 
     function init() {
         // $('.material-preloader').hide();
-        initialNavToggle();
         setupRipple();
         slidingBorder();
         toc();
@@ -99,23 +98,25 @@ $(function() {
         }
     }
 
-    function initialNavToggle() {
-        //nav icon morphing
-        $('.nav-toggle-icon').click(function() {
-            $('body').toggleClass('nav-active');
-            $(this).toggleClass('active').find('.material-hamburger').toggleClass('opened');
-            $('.menu-wrapper').toggleClass('active');
-            $('.logo').toggleClass('fixed');
-        });
-    }
-
     function setupRipple() {
         // ripple click http://fian.my.id/Waves/#start
-        Waves.attach('.wave');
-        Waves.attach('.main.index .post-header.with-cover');
-        Waves.attach('.pagination a');
-        Waves.attach('.pager .pager-item', ['waves-button']);
-        Waves.attach('.btn', ['waves-button']);
+        var rippleTargets = [
+            '.wave',
+            '.main.index article',
+            '.main.index .post-header.with-cover',
+            '.main.index .post-info .post-date',
+            '.main.index .post-info .post-category a',
+            '.main.index .read-more a',
+            '.pagination a',
+            '.pager .pager-item',
+            '.btn',
+            'nav .menus a'
+        ];
+        rippleTargets.forEach(function(selector){
+            if ($(selector).length) {
+                Waves.attach(selector, ['waves-light']);
+            }
+        });
         Waves.init();
     }
 
