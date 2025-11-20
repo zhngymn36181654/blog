@@ -109,13 +109,21 @@ a {
 }
 
 .logo {
-    /*margin: 0 15px;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
 }
 .logo a{
-    font-weight: 400;
+    font-weight: 500;
     font-size: 20px;
-    line-height: 56px;
-    padding: 0 15px;
+    line-height: 1.2;
+    padding: 0 12px;
+    display: inline-flex;
+    align-items: center;
 }
 
 .btn{
@@ -134,16 +142,21 @@ a {
 }
 
 nav {
-    /*background-color: #4184f3;*/
     color: var(--text-color);
-    height: 56px;
     display: flex;
-    justify-content: space-between;
-    align-items: stretch;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 0;
 }
 
 nav a {
     color: var(--text-color);
+}
+
+.nav-indicator {
+    display: none;
 }
 
 .image-caption{
@@ -155,31 +168,12 @@ nav a {
 }
 
 .menu-wrapper {
-    /*display: none;*/
-    position: fixed;
+    position: relative;
+    display: flex;
     width: 100%;
-    height: 100%;
-    left: 0;
-    right: 0;
-    top: 0;
-    /*background-color: #4184f3;*/
-    background-color: transparent;
     margin: 0;
-    padding: 56px 0 0 0;
-    text-align: center;
-    opacity: 0;
-    visibility: hidden;
-    /*transition: none;
-    transform: none;*/
     padding: 0;
-    margin-top: 56px;
-    transition: all .5s;
-    z-index: 10;
-}
-
-.menu-wrapper.active {
-    opacity: 1;
-    visibility: visible;
+    justify-content: center;
 }
 
 .menu-wrapper ul.menus {
@@ -187,52 +181,32 @@ nav a {
     padding: 0;
     margin: 0;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
-    height: 100%;
-}
-
-.logo {
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    height: 56px;
-    padding: 0;
+    gap: 8px;
 }
 
 .menu-wrapper li {
-    will-change: transform, opacity;
-    opacity: 0;
     box-sizing: border-box;
-    transform: translateY(-100px);
-    transition: all 0.3s ease-out;
 }
 
 .menu-wrapper li a {
-    font-size: 5vw;
-    font-weight: 300;
+    font-size: 1rem;
+    font-weight: 500;
     display: inline-block;
-    width: 100%;
-    transition: background .4s ease-out;
+    transition: color .2s ease-out;
 }
 
 .menu-wrapper li a:hover {
     /*background: #3D5AFE;*/
+    background-color: rgba(0,0,0,0.05);
 }
 
 .menu-wrapper a {
     text-decoration: none;
     color: var(--text-color);
-    padding: 15px;
+    padding: 6px 10px;
 }
-
-.nav-toggle-icon {
-    display: block;
-    width: 56px;
-    height: 56px;
-    /*position: relative;*/
-}
-
 
 /*nav end*/
 
@@ -332,6 +306,7 @@ figure.highlight .gutter{
 .post-header{
     /*background-color: #4184f3;*/
     /*padding: 15px;*/
+    position: relative;
 }
 .post-header.with-cover{
     /*height: 150px;*/
@@ -379,6 +354,7 @@ figure.highlight .gutter{
     color: var(--text-color);
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -427,6 +403,7 @@ article blockquote ol,article blockquote ul{
 #toc *{
     /*-webkit-transform: translate3d(0, 0, 0);*/
     /*transform : translate3d(0, 0, 0);*/
+    box-sizing: border-box;
 }
 #toc.tocify{
     border-radius: 0;
@@ -513,49 +490,41 @@ figure.highlight figcaption{
 }
 
 @media (min-width: 768px) {
-    .logo{
-        padding: 15px;
+    nav {
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: space-between;
+        height: 56px;
+        padding: 0;
     }
-    .logo.fixed {
-        position: static;
+    .logo {
+        width: auto;
+        justify-content: flex-start;
+        height: 56px;
+        padding: 0 15px;
+    }
+    .logo a {
+        line-height: 56px;
     }
     .container {
-        /*width: 750px;*/
-    }
-
-    .nav-toggle-icon {
-        display: none;
+        max-width: 750px;
     }
     .menu-wrapper {
-        position: relative;
-        /*position: static;*/
-        display: flex;
+        justify-content: flex-end;
         width: auto;
-        height: auto;
-        padding: 0;
-        opacity: 1;
-        visibility: visible;
-        margin: 0;
-        transition: none;
     }
     .menu-wrapper ul.menus {
-        flex-direction: row;
-        /*height: auto;*/
-    }
-    .menu-wrapper li {
-        will-change: inherit;
-        margin: 0;
-        transform: none;
-        opacity: 1;
-        transition: none;
-        /*margin-right: 30px;*/
+        flex-wrap: nowrap;
+        gap: 16px;
     }
     .menu-wrapper li a {
-        font-size: inherit;
-        font-weight: inherit;
-        height: 100%;
-        /*line-height: 56px;*/
-        /*padding: 0;*/
+        font-size: 0.95rem;
+        height: 56px;
+        line-height: 56px;
+        padding: 0 12px;
+    }
+    .nav-indicator {
+        display: block;
     }
 
     figure.highlight figcaption{
@@ -601,4 +570,54 @@ kbd {
   border-bottom-color: var(--border-subtle);
   border-radius: 3px;
   box-shadow: inset 0 -1px 0 var(--border-subtle);
+}
+
+/* Mobile Layout Optimization */
+@media (max-width: 600px) {
+    /* 1. Navigation Bar Capsule */
+    .nav-wrapper {
+        width: calc(100% - 24px);
+        margin: 12px auto 0;
+        border-radius: 24px;
+        top: 12px;
+        padding: 0 8px; /* Add some internal padding */
+    }
+
+    .menu-wrapper a {
+        font-size: 0.9rem;
+    }
+
+    /* 2. Post Card Compact */
+    article {
+        padding: 16px;
+        border-radius: 16px;
+        margin-bottom: 16px;
+    }
+    
+    .post-header.with-cover {
+        margin: -16px -16px 16px -16px; /* Adjust negative margin for new padding */
+        border-radius: 16px 16px 0 0; /* Ensure top corners match */
+    }
+
+    /* 3. Hide Sidebar (Already hidden by default, but ensuring) */
+    aside {
+        display: none !important;
+    }
+
+    /* 4. Typography Adjustments */
+    h1 { font-size: 1.6em; }
+    h2 { font-size: 1.3em; }
+    h3 { font-size: 1.1em; }
+    
+    /* 5. Footer Spacing */
+    .footer {
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+    
+    /* Adjust container padding */
+    .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
 }
