@@ -1,0 +1,86 @@
+<%
+  var posts = page.posts ? page.posts.toArray() : [];
+  var heroCandidates = posts.filter(function(post) { return post.hero; });
+  var heroCount = Math.min(((theme.newsroom && theme.newsroom.hero_count) || 2), posts.length);
+  var heroPool = heroCandidates.length ? heroCandidates : posts;
+  var heroPosts = heroPool.slice(0, heroCount);
+  var heroIds = heroPosts.map(function(post) { return post._id; });
+  var streamPosts = posts.filter(function(post) { return heroIds.indexOf(post._id) === -1; });
+
+  function buildCover(post) {
+    if (post.cover) {
+      return config.root + post.path + post.cover;
+    }
+    if (post.hero_image) {
+      return post.hero_image;
+    }
+    if (theme.newsroom && theme.newsroom.default_cover) {
+      return theme.newsroom.default_cover;
+    }
+    return '';
+  }
+
+  function buildBadge(post) {
+    if (post.badge) {
+      return post.badge;
+    }
+    if (post.categories && post.categories.length) {
+      var cats = post.categories.toArray ? post.categories.toArray() : (post.categories.data || post.categories);
+      if (cats && cats.length) {
+        return (cats[0].name || cats[0]).toUpperCase();
+      }
+    }
+    return 'UPDATE';
+  }
+%>
+
+<div class="newsroom-container">
+  
+  <% if (heroPosts.length) { %>
+    <div class="newsroom-hero-grid">
+      <% heroPosts.forEach(function(post) { var cover = buildCover(post); %>
+        <article class="news-card hero-card">
+          <a href="<%- url_for(post.path) %>" class="news-card-link">
+            <div class="news-img-wrapper">
+              <% if (cover) { %>
+                <img src="<%- cover %>" alt="<%= post.title %>">
+              <% } else { %>
+                <div class="news-img-placeholder"></div>
+              <% } %>
+            </div>
+            <div class="news-card-body">
+              <div class="news-tag"><%= buildBadge(post) %></div>
+              <h2 class="news-title"><%= post.title || __('no-title') %></h2>
+              <div class="news-date"><%- date(post.date, 'YYYY/MM/DD') %></div>
+            </div>
+          </a>
+        </article>
+      <% }); %>
+    </div>
+  <% } %>
+
+  <% if (streamPosts.length) { %>
+    <div class="newsroom-stream-grid">
+      <% streamPosts.forEach(function(post) { var cover = buildCover(post); %>
+        <article class="news-card">
+          <a href="<%- url_for(post.path) %>" class="news-card-link">
+            <div class="news-img-wrapper">
+              <% if (cover) { %>
+                <img src="<%- cover %>" alt="<%= post.title %>">
+              <% } else { %>
+                <div class="news-img-placeholder"></div>
+              <% } %>
+            </div>
+            <div class="news-card-body">
+              <div class="news-tag"><%= buildBadge(post) %></div>
+              <h3 class="news-title"><%= post.title || __('no-title') %></h3>
+              <div class="news-date"><%- date(post.date, 'YYYY/MM/DD') %></div>
+            </div>
+          </a>
+        </article>
+      <% }); %>
+    </div>
+  <% } %>
+
+  <%- partial('partials/pagination') %>
+</div>

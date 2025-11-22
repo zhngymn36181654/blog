@@ -1,63 +1,20 @@
-<% if(theme.themeColor){%>
-<div class="nav-wrapper" style="background-color:<%= theme.themeColor%>">
-<% }else {%>
-<div class="nav-wrapper">
-<% }%>
-    <div class="container">
-        <nav>
-            <div class="logo wave">
-                <a href="<%- url_for() %>" id="logo">
-                    <%= config.title %>
-                </a>
-            </div>
-            <div class="menu-wrapper">
-                <div class="nav-indicator">
-                </div>
-                <ul class="menus">
-                    <%if(is_home()&&theme.active_nav){%>
-                     <% for (var i in theme.menu){ %>
-                        <li class="<%if(i=='home'){%>active<%}%>">
-                            <a class="<%if(i=='rss'){%>no-smoothstate<%}%>" href="<%- url_for(theme.menu[i]) %>">
-                                <%-  __(i) %>
-                            </a>
-                        </li>
-                     <% } %>
-                    <%}else if(is_category()&&theme.active_nav){%>
-                     <% for (var i in theme.menu){ %>
-                        <li class="<%if(i=='categories'){%>active<%}%>">
-                            <a class="wave <%if(i=='rss'){%>no-smoothstate<%}%>" href="<%- url_for(theme.menu[i]) %>">
-                                <%-  __(i) %>
-                            </a>
-                        </li>
-                     <% } %>
-                    <%}else if(is_archive()&&theme.active_nav){%>
-                     <% for (var i in theme.menu){ %>
-                        <li class="<%if(i=='archives'){%>active<%}%>">
-                            <a class="wave <%if(i=='rss'){%>no-smoothstate<%}%>" href="<%- url_for(theme.menu[i]) %>">
-                                <%-  __(i) %>
-                            </a>
-                        </li>
-                     <% } %>
-                    <%}else if(page.layout=='about'&&theme.active_nav){%>
-                     <% for (var i in theme.menu){ %>
-                        <li class="<%if(i=='about'){%>active<%}%>">
-                            <a class="wave <%if(i=='rss'){%>no-smoothstate<%}%>" href="<%- url_for(theme.menu[i]) %>">
-                                <%-  __(i) %>
-                            </a>
-                        </li>
-                     <% } %>
-                    <%}else{%>
-                     <% for (var i in theme.menu){ %>
-                        <li>
-                            <a class="wave <%if(i=='rss'){%>no-smoothstate<%}%>" href="<%- url_for(theme.menu[i]) %>">
-                                <%-  __(i) %>
-                            </a>
-                        </li>
-                     <% } %>
-                    <%}%>
-                   
-                </ul>
-            </div>
-        </nav>
+<header class="newsroom-nav-shell">
+  <div class="newsroom-nav">
+    <div class="newsroom-nav__spacer" aria-hidden="true"></div>
+
+    <div class="newsroom-nav__logo">
+      <a href="<%- url_for('/') %>" title="Back to home">Blog</a>
     </div>
-</div>
+
+    <nav class="newsroom-nav__links" aria-label="Primary">
+      <a href="<%- url_for('/archives') %>" class="newsroom-link" data-active="<%= page.path && page.path.indexOf('archives') === 0 %>">Articles</a>
+      <a href="<%- url_for('/about') %>" class="newsroom-link" data-active="<%= page.path && page.path.indexOf('about') === 0 %>">Me</a>
+      <a href="<%- url_for('/search') %>" class="newsroom-search">
+        <svg class="newsroom-search__icon" width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M11.7422 10.3439L15.7279 14.3297C16.1185 14.7202 16.0906 15.3812 15.6722 15.7997C15.2537 16.2181 14.5928 16.246 14.2022 15.8555L10.2165 11.8697C9.08153 12.7536 7.66068 13.2778 6.11111 13.2778C2.73654 13.2778 0 10.5412 0 7.16667C0 3.7921 2.73654 1.05556 6.11111 1.05556C9.48569 1.05556 12.2222 3.7921 12.2222 7.16667C12.2222 8.35251 11.8795 9.45676 11.2878 10.392L11.7422 10.3439ZM6.11111 11.3333C8.41229 11.3333 10.2778 9.46785 10.2778 7.16667C10.2778 4.86548 8.41229 3 6.11111 3C3.80993 3 1.94444 4.86548 1.94444 7.16667C1.94444 9.46785 3.80993 11.3333 6.11111 11.3333Z" fill="currentColor"/>
+        </svg>
+        <span>Search Blog</span>
+      </a>
+    </nav>
+  </div>
+</header>

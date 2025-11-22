@@ -25,6 +25,11 @@ links:
   - title: "GitHub"
     url: https://github.com/zhngymn36181654
     intro: "GitHub"
+
+newsroom:
+  enable: true
+  hero_count: 2
+  default_cover:
   
 
 # disqus_shortname: wayou

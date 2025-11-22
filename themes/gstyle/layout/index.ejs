@@ -1,52 +1,70 @@
- <div class="row">
-  <div class="main index">
+<%
+  const posts = page.posts ? page.posts.toArray() : [];
+  const heroCount = Math.min(2, posts.length);
+  const heroPosts = posts.slice(0, heroCount);
+  const streamPosts = posts.slice(heroCount);
 
-  <% page.posts.each(function(post, i){ %>
-    <article class="card-entry">
-      <a href="<%- url_for(post.path) %>" >
-        <%if(post.cover){%>
-          <header class="post-header with-cover" style="background-image:url('<%- config.root+post.path+post.cover%>')" >
-        <%}else{%>
-          <header class="post-header">
-        <%}%>
-          <h1 class="post-title">
-            <!-- <a href="<%- url_for(post.path) %>" title="<%=post.title || __('no-title')%>" ><%=post.title || __('no-title')%></a> -->
-            <span><%=post.title || __('no-title')%></span>
-          </h1>
-        </header>
-      </a>
+  function coverFor(post) {
+    if (post.cover) return config.root + post.path + post.cover;
+    if (post.hero_image) return post.hero_image;
+    if (theme.newsroom && theme.newsroom.default_cover) return theme.newsroom.default_cover;
+    return '';
+  }
 
-       <section class="post-info">
-        <span class="post-date"><%- date(post.date, 'YYYY/MM/DD') %></span>
-          <% if (post.categories && post.categories.length&&theme.show_post_category){ %>
-          <span class="post-category">
-              <%- list_categories(post.categories, {
-                show_count: false,
-                class: 'post-category',
-                style: 'none',
-                separator: ' '
-              }) %>
-          </span>
-          <% } %>
-        <!-- <span class="read-more btn"><a href="<%- url_for(post.path) %>" ><%=__('more')%></a></span> -->
-      </section>
+  function badgeFor(post) {
+    if (post.badge) return post.badge.toUpperCase();
+    const cats = post.categories && (post.categories.toArray ? post.categories.toArray() : post.categories.data);
+    if (cats && cats.length) return (cats[0].name || cats[0]).toUpperCase();
+    return 'UPDATE';
+  }
+%>
 
-      <section class="post-abstract">
-        <%if(post.excerpt){%>
-          <%- strip_html(post.excerpt) %>
-        <%}else{%>
-          <%- strip_html(truncate(post.content,{length:150})) %>
-        <%}%>
-      </section>
-      
-    </article>
-  <% }) %>
+<div class="newsroom-home">
+  <% if (heroPosts.length) { %>
+    <section class="newsroom-hero-grid">
+      <% heroPosts.forEach(function(post) { const cover = coverFor(post); %>
+        <article class="newsroom-card hero-card">
+          <a href="<%- url_for(post.path) %>" class="newsroom-card__link">
+            <div class="newsroom-card__media">
+              <% if (cover) { %>
+                <img src="<%- cover %>" alt="<%= post.title %>">
+              <% } else { %>
+                <div class="newsroom-card__placeholder"></div>
+              <% } %>
+            </div>
+            <div class="newsroom-card__body">
+              <span class="newsroom-tag"><%= badgeFor(post) %></span>
+              <h2 class="newsroom-title"><%= post.title || __('no-title') %></h2>
+              <time class="newsroom-date"><%- date(post.date, 'YYYY/MM/DD') %></time>
+            </div>
+          </a>
+        </article>
+      <% }); %>
+    </section>
+  <% } %>
+
+  <% if (streamPosts.length) { %>
+    <section class="newsroom-stream-grid">
+      <% streamPosts.forEach(function(post) { const cover = coverFor(post); %>
+        <article class="newsroom-card">
+          <a href="<%- url_for(post.path) %>" class="newsroom-card__link">
+            <div class="newsroom-card__media">
+              <% if (cover) { %>
+                <img src="<%- cover %>" alt="<%= post.title %>">
+              <% } else { %>
+                <div class="newsroom-card__placeholder"></div>
+              <% } %>
+            </div>
+            <div class="newsroom-card__body">
+              <span class="newsroom-tag"><%= badgeFor(post) %></span>
+              <h3 class="newsroom-title"><%= post.title || __('no-title') %></h3>
+              <time class="newsroom-date"><%- date(post.date, 'YYYY/MM/DD') %></time>
+            </div>
+          </a>
+        </article>
+      <% }); %>
+    </section>
+  <% } %>
+
   <%- partial('partials/pagination') %>
-  
-  </div>
-  <%if(theme.sidebar&&theme.widgets.length){%>
-    <aside>
-        <%- partial('partials/widgets') %>
-    </aside>
-  <%}%>
 </div>
