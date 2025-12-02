@@ -1,0 +1,42 @@
+<%
+  const posts = page.posts ? page.posts.toArray() : [];
+
+  function coverFor(post) {
+    if (post.cover) return config.root + post.path + post.cover;
+    if (post.hero_image) return post.hero_image;
+    if (theme.newsroom && theme.newsroom.default_cover) return theme.newsroom.default_cover;
+    return '';
+  }
+
+  function badgeFor(post) {
+    if (post.badge) return post.badge.toUpperCase();
+    const cats = post.categories && (post.categories.toArray ? post.categories.toArray() : post.categories.data);
+    if (cats && cats.length) return (cats[0].name || cats[0]).toUpperCase();
+    return 'UPDATE';
+  }
+%>
+
+<div class="newsroom-home">
+  <% if (posts.length) { %>
+    <section class="newsroom-grid">
+      <% posts.forEach(function(post) { const cover = coverFor(post); %>
+        <article class="newsroom-card">
+          <a href="<%- url_for(post.path) %>" class="newsroom-card__link">
+            <div class="newsroom-card__media">
+              <% if (cover) { %>
+                <img src="<%- cover %>" alt="<%= post.title %>">
+              <% } else { %>
+                <div class="newsroom-card__placeholder"></div>
+              <% } %>
+            </div>
+            <div class="newsroom-card__body">
+              <span class="newsroom-tag"><%= badgeFor(post) %></span>
+              <h2 class="newsroom-title"><%= post.title %></h2>
+              <time class="newsroom-date"><%- date(post.date, 'YYYY/MM/DD') %></time>
+            </div>
+          </a>
+        </article>
+      <% }); %>
+    </section>
+  <% } %>
+</div>

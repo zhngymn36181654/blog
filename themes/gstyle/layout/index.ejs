@@ -1,8 +1,5 @@
 <%
   const posts = page.posts ? page.posts.toArray() : [];
-  const heroCount = Math.min(2, posts.length);
-  const heroPosts = posts.slice(0, heroCount);
-  const streamPosts = posts.slice(heroCount);
 
   function coverFor(post) {
     if (post.cover) return config.root + post.path + post.cover;
@@ -19,52 +16,51 @@
   }
 %>
 
-<div class="newsroom-home">
-  <% if (heroPosts.length) { %>
-    <section class="newsroom-hero-grid">
-      <% heroPosts.forEach(function(post) { const cover = coverFor(post); %>
-        <article class="newsroom-card hero-card">
-          <a href="<%- url_for(post.path) %>" class="newsroom-card__link">
-            <div class="newsroom-card__media">
-              <% if (cover) { %>
-                <img src="<%- cover %>" alt="<%= post.title %>">
-              <% } else { %>
-                <div class="newsroom-card__placeholder"></div>
-              <% } %>
-            </div>
-            <div class="newsroom-card__body">
-              <span class="newsroom-tag"><%= badgeFor(post) %></span>
-              <h2 class="newsroom-title"><%= post.title || __('no-title') %></h2>
-              <time class="newsroom-date"><%- date(post.date, 'YYYY/MM/DD') %></time>
-            </div>
-          </a>
-        </article>
-      <% }); %>
-    </section>
-  <% } %>
+<main class="newsroom-main">
 
-  <% if (streamPosts.length) { %>
-    <section class="newsroom-stream-grid">
-      <% streamPosts.forEach(function(post) { const cover = coverFor(post); %>
-        <article class="newsroom-card">
-          <a href="<%- url_for(post.path) %>" class="newsroom-card__link">
-            <div class="newsroom-card__media">
-              <% if (cover) { %>
-                <img src="<%- cover %>" alt="<%= post.title %>">
-              <% } else { %>
-                <div class="newsroom-card__placeholder"></div>
-              <% } %>
-            </div>
-            <div class="newsroom-card__body">
-              <span class="newsroom-tag"><%= badgeFor(post) %></span>
-              <h3 class="newsroom-title"><%= post.title || __('no-title') %></h3>
-              <time class="newsroom-date"><%- date(post.date, 'YYYY/MM/DD') %></time>
-            </div>
-          </a>
-        </article>
-      <% }); %>
-    </section>
-  <% } %>
+  <!-- Everydayfeed Section -->
+  <section class="everydayfeed">
+    <div class="everydayfeed-grid">
+
+      <% posts.forEach((post, index) => { 
+          const cover = coverFor(post);
+          const badge = badgeFor(post);
+
+          // Determine card type
+          let cardType = '';
+          if (index === 0) cardType = 'card-hero';
+          else if (index >= 1 && index <= 4) cardType = 'card-secondary';
+          else cardType = 'card-standard';
+      %>
+
+      <!-- Card -->
+      <article class="newsroom-card <%= cardType %>">
+        <a href="<%- url_for(post.path) %>" class="newsroom-card__link">
+
+          <div class="newsroom-card__media">
+            <% if (cover) { %>
+              <img src="<%- cover %>" alt="<%- post.title %>" loading="lazy">
+            <% } else { %>
+              <div class="newsroom-card__placeholder"></div>
+            <% } %>
+          </div>
+
+          <div class="newsroom-card__body">
+            <span class="newsroom-card__tag"><%= badge %></span>
+            <h2 class="newsroom-card__title"><%= post.title %></h2>
+            <time class="newsroom-card__date">
+              <%= date(post.date, 'YYYY/MM/DD') %>
+            </time>
+          </div>
+
+        </a>
+      </article>
+
+      <% }) %>
+
+    </div>
+  </section>
 
   <%- partial('partials/pagination') %>
-</div>
+
+</main>

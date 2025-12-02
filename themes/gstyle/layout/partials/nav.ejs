@@ -1,20 +1,73 @@
-<header class="newsroom-nav-shell">
-  <div class="newsroom-nav">
-    <div class="newsroom-nav__spacer" aria-hidden="true"></div>
+<header class="ac-ln-shell">
+  <div class="ac-ln-wrapper">
+    <div class="ac-ln-content">
 
-    <div class="newsroom-nav__logo">
-      <a href="<%- url_for('/') %>" title="Back to home">Blog</a>
+      <!-- Left Title -->
+      <span class="ac-ln-title">
+        <a href="<%- url_for('/') %>"><%= config.title || 'Blog' %></a>
+      </span>
+
+      <!-- Main Menu Container -->
+      <div class="ac-ln-menu">
+
+        <!-- Desktop Horizontal Menu -->
+        <ul class="ac-ln-menu-items ac-ln-menu-items-desktop">
+          <li class="ac-ln-menu-item"><a class="ac-ln-menu-link" href="<%- url_for('/archives') %>">Archive</a></li>
+          <li class="ac-ln-menu-item"><a class="ac-ln-menu-link" href="<%- url_for('/about') %>">About</a></li>
+          <li class="ac-ln-menu-item is-search"><a class="ac-ln-menu-link" href="<%- url_for('/search') %>">Search</a></li>
+        </ul>
+
+        <!-- Mobile Actions: Menu Toggle + Search Capsule + Tray -->
+        <div class="ac-ln-actions">
+
+          <!-- Mobile Menu Toggle + Chevron -->
+          <div class="ac-ln-action ac-ln-action-menucta">
+            <button class="ac-ln-menucta-anchor ac-ln-menucta-anchor-open" id="ac-ln-menustate-open" aria-expanded="false">
+              <span class="ac-ln-menucta-anchor-label">Open navigation</span>
+            </button>
+            <button class="ac-ln-menucta-anchor ac-ln-menucta-anchor-close" id="ac-ln-menustate-close" aria-expanded="true">
+              <span class="ac-ln-menucta-anchor-label">Close navigation</span>
+            </button>
+
+            <!-- Chevron -->
+            <label class="ac-ln-menucta">
+              <span class="ac-ln-menucta-chevron">
+                <svg viewBox="0 0 16 9" xmlns="http://www.w3.org/2000/svg">
+                  <polyline stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none" points="15.2 0.9 8 8.1 0.8 0.9">
+                    <animate data-anim="expand" attributeName="points" dur="0.32s" begin="indefinite" fill="freeze" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.12 0 0.38 0;0.2 1 0.68 1" values="15.2 0.9 8 8.1 0.8 0.9;15.2 4.5 8 4.5 0.8 4.5;15.2 8.1 8 0.9 0.8 8.1" />
+                    <animate data-anim="collapse" attributeName="points" dur="0.32s" begin="indefinite" fill="freeze" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.2 0 0.68 0;0.2 1 0.68 1" values="15.2 8.1 8 0.9 0.8 8.1;15.2 4.5 8 4.5 0.8 4.5;15.2 0.9 8 8.1 0.8 0.9" />
+                  </polyline>
+                </svg>
+              </span>
+            </label>
+          </div>
+
+          <!-- Mobile Search Capsule -->
+          <div class="ac-ln-action ac-ln-action-search">
+            <a class="ac-ln-search-capsule" href="<%- url_for('/search') %>">
+              <span class="ac-ln-search-icon">
+                <svg viewBox="0 0 15 15" width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.5" fill="none" />
+                  <line x1="10.5" y1="10.5" x2="14" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+              </span>
+              <span class="ac-ln-search-text">搜索</span>
+            </a>
+          </div>
+
+
+
+        </div>
+        <!-- Mobile Dropdown Tray -->
+        <div class="ac-ln-menu-tray">
+          <ul class="ac-ln-menu-items">
+            <li class="ac-ln-menu-item"><a class="ac-ln-menu-link" href="<%- url_for('/archives') %>">Archive</a></li>
+            <li class="ac-ln-menu-item"><a class="ac-ln-menu-link" href="<%- url_for('/about') %>">About</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="ac-ln-overlay"></div>
+
     </div>
-
-    <nav class="newsroom-nav__links" aria-label="Primary">
-      <a href="<%- url_for('/archives') %>" class="newsroom-link" data-active="<%= page.path && page.path.indexOf('archives') === 0 %>">Articles</a>
-      <a href="<%- url_for('/about') %>" class="newsroom-link" data-active="<%= page.path && page.path.indexOf('about') === 0 %>">Me</a>
-      <a href="<%- url_for('/search') %>" class="newsroom-search">
-        <svg class="newsroom-search__icon" width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M11.7422 10.3439L15.7279 14.3297C16.1185 14.7202 16.0906 15.3812 15.6722 15.7997C15.2537 16.2181 14.5928 16.246 14.2022 15.8555L10.2165 11.8697C9.08153 12.7536 7.66068 13.2778 6.11111 13.2778C2.73654 13.2778 0 10.5412 0 7.16667C0 3.7921 2.73654 1.05556 6.11111 1.05556C9.48569 1.05556 12.2222 3.7921 12.2222 7.16667C12.2222 8.35251 11.8795 9.45676 11.2878 10.392L11.7422 10.3439ZM6.11111 11.3333C8.41229 11.3333 10.2778 9.46785 10.2778 7.16667C10.2778 4.86548 8.41229 3 6.11111 3C3.80993 3 1.94444 4.86548 1.94444 7.16667C1.94444 9.46785 3.80993 11.3333 6.11111 11.3333Z" fill="currentColor"/>
-        </svg>
-        <span>Search Blog</span>
-      </a>
-    </nav>
   </div>
 </header>
