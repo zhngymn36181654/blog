@@ -1,0 +1,192 @@
+/* hero */
+.archive-hero {
+    padding: 80px 0 40px;
+    text-align: center;
+    background: #f5f5f7;
+}
+
+.archive-hero h1 {
+    font-size: 48px;
+    font-weight: 600;
+    color: #1d1d1f;
+}
+
+
+
+/* year title */
+.archive-year {
+    margin: 60px 0 20px;
+    font-size: 32px;
+    color: #1d1d1f;
+    font-weight: 600;
+}
+
+/* list wrapper */
+.archive-year-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+
+.archive-item:last-child {
+    border-bottom: none;
+}
+
+
+
+/* ------------------------------
+   Archive 容器宽度（与导航栏完全对齐）
+--------------------------------*/
+.archive-content {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+/* ------------------------------
+   月份标题（如：10 月 2025）
+--------------------------------*/
+.archive-month {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin-bottom: 24px;
+    padding-bottom: 8px;
+
+    border-bottom: 1px solid rgba(0,0,0,0.08); /* Apple Hairline */
+}
+
+
+/* ------------------------------
+   单个卡片整体（Apple Newsroom 左图右文）
+--------------------------------*/
+
+.archive-item {
+    display: flex;
+    gap: 32px;
+    padding: 40px 0;
+    border-bottom: 1px solid rgba(60,60,67,0.15);
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* ------------------------------
+   左侧图片区域（固定宽度）
+--------------------------------*/
+.item-img {
+    width: 320px;
+    height: 180px; /* 保持横版比例 16:9 */
+    flex-shrink: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f2f2f7;
+}
+
+.item-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ------------------------------
+   右侧文本区域
+--------------------------------*/
+.item-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 分类（Topic）*/
+.item-category {
+    font-size: 14px;
+    font-weight: 500;
+    color: #6e6e73;
+    margin-bottom: 6px;
+    display: inline-block;
+}
+
+/* 标题（Title）*/
+.item-title {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: #1d1d1f;
+    margin: 0 0 10px;
+}
+
+/* 日期（Date）*/
+.item-date {
+    font-size: 16px;
+    color: #6e6e73;
+}
+
+
+/* ------------------------------
+   顶部筛选栏 Apple 风格
+--------------------------------*/
+.archive-filter {
+    width: 100%;
+    background: #f5f5f7;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding: 16px 0;
+}
+
+/* 左右居中 */
+.filter-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* “筛选”文字 */
+.filter-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #6e6e73;
+    margin-right: 2px;
+}
+
+/* Apple 胶囊 */
+.filter-capsule {
+    background: #ffffff;
+    border-radius: 999px;
+    border: 1px solid rgba(0,0,0,0.1);
+    padding: 6px 14px;
+}
+
+/* 鼠标移上去 */
+.filter-capsule:hover {
+    background: #f0f0f2;
+}
+
+/* 内部下拉框（隐藏系统样式） */
+.filter-capsule select {
+    border: none;
+    outline: none;
+    background: transparent;
+
+    font-size: 14px;
+    color: #1d1d1f;
+    font-weight: 500;
+
+    appearance: none;
+    cursor: pointer;
+
+    padding-right: 18px;
+}
+
+/* 下拉箭头（苹果灰） */
+.filter-capsule select {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%236e6e73" height="12" width="12" viewBox="0 0 20 20"><path d="M5 7l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 0 center;
+}
+

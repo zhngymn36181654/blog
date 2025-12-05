@@ -1,42 +1,63 @@
-# main menu navigation
+# =====================
+# 顶部导航栏
+# =====================
 menu:
   home: /
   archives: /archives
   about: /about
   rss: /atom.xml
 
-# Miscelaneous
 favicon: /favicon.ico
 
 show_post_category: true
 show_post_tags: true
 
-active_nav: false # show active status on nav menu
+active_nav: false
 
-sidebar: true # whether to show the sidebar
-widgets:
-  # - category
-  # - tag
-  # - tagcloud
-  # - archive
-  - recent_posts
-  - links
-links:
-  - title: "GitHub"
-    url: https://github.com/zhngymn36181654
-    intro: "GitHub"
 
+# =====================
+# Apple Newsroom 首页设置
+# =====================
 newsroom:
   enable: true
-  hero_count: 2
-  default_cover:
-  
-
-# disqus_shortname: wayou
-# duoshuo_shortname: wayouliu
-#site statistic
-google_analytics:  
-# baidu_analytics: 392796d51567e848aebf813b65cb8656
-baidu_analytics: 
+  hero_count: 2               # 首页 hero 卡片数量
+  default_cover: /img/placeholder.png  # 当文章无封面图时使用
 
 
+# =====================
+# Archive（归档页）设置 — Apple Newsroom 模式
+# =====================
+archive:
+  enable_filter: true         # 启用顶部筛选栏（年份 / 月份 / 分类）
+  card_layout: true           # 左图右文卡片布局
+  group_by: month             # month = “12月 2025”分组；year = “2025”分组
+  thumbnail_field: thumbnail  # 从 Front-matter 读取封面图字段
+
+
+# =====================
+# Pagination（分页器）
+# =====================
+pagination:
+  enable: true
+  per_page: 10                # 每页文章数量
+  style: newsroom             # 使用 Apple Newsroom 风格分页器
+
+
+# =====================
+# Sidebar & Widgets
+# =====================
+sidebar: true
+widgets:
+  - recent_posts
+  - links
+
+links:
+  - title: GitHub
+    url: https://github.com/zhngymn36181654
+
+
+# =====================
+# Analytics（可留空）
+# =====================
+google_analytics:
+baidu_analytics:

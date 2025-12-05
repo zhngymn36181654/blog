@@ -1,1 +1,144 @@
-<%- partial('partials/title_list', {page: page,title:''}) %>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <%- partial('partials/head') %>
+    <title>Archive</title>
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/pagination.css">
+</head>
+
+<body>
+<%
+    // 归档页要用的数据
+    const allPosts = site.posts.sort('date', -1);
+    const years = Array.from(new Set(allPosts.map(p => p.date.year()))).sort((a,b)=>b-a);
+%>
+
+<section class="archive-filter">
+    <div class="filter-inner">
+
+        <span class="filter-label">筛选</span>
+
+        <!-- 分类 -->
+        <div class="filter-capsule">
+            <select id="filter-category" onchange="changeFilter()">
+                <option value="all">所有话题</option>
+                <% site.categories.forEach(cat => { %>
+                    <option value="<%= cat.name %>"><%= cat.name %></option>
+                <% }) %>
+            </select>
+        </div>
+
+        <!-- 年份 -->
+        <div class="filter-capsule">
+            <select id="filter-year" onchange="changeFilter()">
+                <option value="all">全部年份</option>
+                <% years.forEach(y => { %>
+                    <option value="<%= y %>"><%= y %></option>
+                <% }) %>
+            </select>
+        </div>
+
+        <!-- 月份 -->
+        <div class="filter-capsule">
+            <select id="filter-month" onchange="changeFilter()">
+                <option value="all">全部月份</option>
+                <% for (let m=1; m<=12; m++) { %>
+                    <option value="<%= m %>"><%= m %> 月</option>
+                <% } %>
+            </select>
+        </div>
+
+    </div>
+</section>
+
+<!-- 内容区域 -->
+<section class="archive-content">
+
+<%
+const posts = page.posts;
+let currentYear = null;
+let currentMonth = null;
+
+posts.forEach(post => {
+    const year = post.date.year();
+    const month = post.date.month() + 1;
+%>
+
+    <% if (year !== currentYear || month !== currentMonth) { %>
+
+        <% if (currentYear !== null) { %>
+            </div> <!-- close prev list -->
+        <% } %>
+
+        <div class="archive-month-block">
+            <h2 class="archive-month">
+                <%= month %> 月 <%= year %>
+            </h2>
+            <div class="archive-list">
+    <%  
+        currentYear = year;
+        currentMonth = month;
+    } 
+    %>
+
+    <!-- Apple Newsroom 卡片 -->
+    <a href="<%= url_for(post.path) %>" class="archive-item">
+
+        <% 
+            // 默认图片
+            let thumb = '/img/placeholder.png';
+
+            // 如果文章 front-matter 里有 cover 字段
+            if (post.cover) {
+                const dir = post.path.replace(/index\.html$/, '');
+                thumb = '/' + dir + post.cover;
+            }
+        %>
+
+        <div class="item-img">
+            <img src="<%= thumb %>" alt="">
+        </div>
+
+        <div class="item-text">
+            <span class="item-category"><%= post.categories.data[0]?.name || '未分类' %></span>
+            <h3 class="item-title"><%= post.title %></h3>
+            <span class="item-date"><%= date(post.date, 'YYYY 年 M 月 D 日') %></span>
+        </div>
+
+    </a>
+
+
+
+<% }) %>
+
+</div><!-- last block -->
+
+</section>
+
+<!-- 分页 -->
+<%- partial('partials/pagination') %>
+
+
+
+<script>
+function changeFilter() {
+    const c = document.getElementById('filter-category').value;
+    const y = document.getElementById('filter-year').value;
+    const m = document.getElementById('filter-month').value;
+
+    let url = "/archive/";
+    let query = [];
+
+    if (c !== "all") query.push("category=" + c);
+    if (y !== "all") query.push("year=" + y);
+    if (m !== "all") query.push("month=" + m);
+
+    if (query.length) url += "?" + query.join("&");
+
+    window.location.href = url;
+}
+</script>
+
+</body>
+</html>

@@ -5,14 +5,8 @@ categories:
 - 生活日志
 tags:
 - 研究生
-cover: 59b93924-e09a-400b-a6b7-0f9550d1657e.png
+cover: ahjz.jpg
 ---
-
-
-目前还是上课为主
-
-![我的课表](Schedule.jpeg)
-
 
 ## 第13周
 

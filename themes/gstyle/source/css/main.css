@@ -1,6 +1,6 @@
 /* ==================================================
-   Apple Newsroom Style – Minimal main.css
-   Works with: nav.ejs + index.ejs + post.ejs basic
+   Apple Newsroom Style – main.css (Clean Version)
+   Works with: nav.ejs + index.ejs + post.ejs
    ================================================== */
 
 /* ---------- Design Tokens ---------- */
@@ -84,7 +84,7 @@ img {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* 宽度 & 对齐：和正文、卡片完全一致 */
+/* 宽度 & 对齐：与正文、卡片完全一致 */
 .ac-ln-wrapper {
   width: 100%;
   max-width: var(--content-width);
@@ -125,11 +125,20 @@ img {
   gap: 28px;
 }
 
+.ac-ln-menu-items-desktop  {
+  display: flex;
+  align-items: center;
+}
+
 .ac-ln-menu-item {
+  display: flex;
+  align-items: center;
   list-style: none;
 }
 
 .ac-ln-menu-link {
+  display: inline-block;
+  line-height: 52px;
   font-size: 17px;
   letter-spacing: -0.374px;
   display: inline-flex;
@@ -143,6 +152,9 @@ img {
 
 /* 桌面端 Search 胶囊按钮（带 .is-search 类） */
 .ac-ln-menu-item.is-search .ac-ln-menu-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 12px;
   height: 24px;
   line-height: 24px;
@@ -288,8 +300,7 @@ img {
 }
 
 /* ==================================================
-   2. INDEX PAGE – Everydayfeed Grid
-   对应 index.ejs
+   2. INDEX PAGE – Everydayfeed Grid (index.ejs)
    ================================================== */
 
 .newsroom-main {
@@ -452,45 +463,36 @@ img {
 }
 
 /* ==================================================
-   3. BASIC ARTICLE PAGE (post.ejs) – 精简版
+   3. ARTICLE PAGE (post.ejs) – 基础版
    ================================================== */
+/* === Full-width sections (align with navbar & cards) === */
+
+.article-header-outer,
+.article-hero-outer {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 22px;
+}
+
 
 .newsroom-article {
-  max-width: 800px;
+  max-width: 700px;
   margin: 0 auto;
-  padding: 40px var(--content-padding-x) 60px;
+  padding: 0 22px 60px;
 }
 
-.article-header {
-  text-align: center;
-  margin-bottom: 36px;
-}
-
-.article-tag {
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-  margin-bottom: 10px;
-}
-
-.article-title {
-  font-family: var(--font-display);
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 1.1;
-  margin-bottom: 12px;
-}
-
-.article-date {
-  font-size: 14px;
-  color: var(--text-secondary);
-}
 
 .article-hero {
-  margin: 0 -22px 32px;
-  border-radius: var(--radius-md);
+  width: 100%;
+  border-radius: 28px;
   overflow: hidden;
+  margin: 0 0 48px;
+}
+
+.article-hero img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 .article-content {
@@ -498,20 +500,85 @@ img {
   line-height: 1.6;
 }
 
-/* Mobile article tweak */
+.article-header {
+  text-align: left;
+  max-width: 700px;
+  margin: 0 auto 48px;
+  padding-top: 40px;
+}
+
+.article-meta-category {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.article-meta-date {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 4px auto 16px;
+}
+
+.article-title {
+  font-family: var(--font-display);
+  font-size: 42px;
+  line-height: 1.15;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
 @media (max-width: 734px) {
-  .newsroom-article {
-    padding: 28px 16px 40px;
+  .article-header-outer,
+  .article-hero-outer {
+    padding: 0 16px;
+  }
+
+  /* Article Header */
+  .article-header {
+    padding-top: 20px;
+    margin-bottom: 32px;
+    text-align: left; 
   }
 
   .article-title {
-    font-size: 28px;
+    font-size: 30px;   /* Apple Newsroom Mobile 标题尺寸 */
+    
+  }
+
+  /* Article Layout */
+  .newsroom-article {
+    max-width: none;
+    padding: 24px 16px 40px;   /* 左右留白，避免贴边 */
   }
 
   .article-hero {
-    margin: 0 -16px 24px;
+    border-radius: 16px;
+    margin-bottom: 32px;
+  }
+
+  .article-content {
+    padding: 0 4px;              /* 给文字额外留白 */
+  }
+
+  /* 图片等 Media 元素：不能撑破容器 */
+  .article-content img,
+  .article-content figure,
+  .article-content pre,
+  .article-content code,
+  .article-content blockquote,
+  .article-content table {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
+
+
+
 
 /* ==================================================
    4. Pagination
@@ -542,18 +609,43 @@ img {
 }
 
 /* ==================================================
-   5. Footer
-   ================================================== */
+   5.Footer — Apple Newsroom Inspired (Centered Layout)
+================================================== */
 
 .footer {
-  max-width: var(--content-width);
-  margin: 60px auto 40px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;            /* 核心：让内容水平居中 */
+  justify-content: center;
+
+  margin: 80px 0 60px;
   padding: 0 var(--content-padding-x);
-  font-size: 13px;
+
   color: var(--text-secondary);
-  text-align: left;
+  font-size: 13px;
 }
 
-.footer p {
-  margin: 4px 0;
+.footer-inner {
+  max-width: var(--content-width); /* 与卡片 / 文章保持一致 */
+  width: 100%;
 }
+
+.footer-line {
+  margin: 4px 0;
+  text-align: center;              /* 文本居中 (Newsroom footer风格) */
+}
+
+/* 链接 hover 效果 */
+.footer-line a {
+  color: #06c;
+  text-decoration: none;
+}
+
+.footer-line a:hover {
+  text-decoration: underline;
+}
+
+
+
+

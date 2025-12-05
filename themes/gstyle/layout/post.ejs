@@ -1,57 +1,32 @@
-<div class="row">
-    <div class="main">
-        <article class="newsroom-article">
-          <header class="article-header">
-            <% if (page.categories && page.categories.length) { %>
-              <div class="article-tag"><%= page.categories.data[0].name %></div>
-            <% } else { %>
-              <div class="article-tag">Update</div>
-            <% } %>
-            
-            <h1 class="article-title"><%= page.title %></h1>
-            
-            <div class="article-date">
-              <%- date(page.date, 'YYYY 年 M 月 D 日') %>
-            </div>
-          </header>
+<main class="article-main">
 
-          <% if (page.cover) { %>
-            <figure class="article-hero">
-              <img src="<%- config.root + page.path + page.cover %>" alt="<%= page.title %>">
-            </figure>
-          <% } %>
+  <!-- Header block (full width 980px) -->
+  <section class="article-header-outer">
+    <header class="article-header">
+      <div class="article-meta-category"><%= page.categories.data[0].name %></div>
+      <div class="article-meta-date">
+        <%= date(page.date, 'YYYY 年 M 月 D 日') %>
+      </div>
+      <h1 class="article-title"><%= page.title %></h1>
 
-          <div class="article-content">
-            <%- page.content %>
-          </div>
-        </article>
 
-        <% if (page.total > 1){ %>
-        <div class="pagination">
-            <%- paginator({
-              prev_text: "« "+__('prev'),
-              next_text: __('next')+" »"
-            }) %>
-        </div>
-        <% } %>
+    </header>
+  </section>
 
-       <% if (page.prev || page.next){ %>
-        <div class="pager">
-          <% if (page.prev){ %>
-            <a class="post-prev pager-item" href="<%- url_for(page.prev.path) %>" >
-              <span class="pager-label">Previous</span>
-              <span class="pager-title"><%= page.prev.title %></span>
-            </a>
-          <% } %>
-          <% if (page.next){ %>
-            <a class="post-next pager-item" href="<%- url_for(page.next.path) %>" >
-              <span class="pager-label">Next</span>
-              <span class="pager-title"><%= page.next.title %></span>
-            </a>
-          <% } %>
-        </div>
-      <% } %>
+  <!-- Hero block (full width 980px) -->
+  <% if (page.cover) { %>
+    <section class="article-hero-outer">
+      <figure class="article-hero">
+        <img src="<%- config.root + page.path + page.cover %>" alt="<%= page.title %>">
+      </figure>
+    </section>
+  <% } %>
 
-      <%- partial('partials/comments') %>
+  <!-- Content block (700px) -->
+  <section class="newsroom-article">
+    <div class="article-content">
+      <%- page.content %>
     </div>
-</div>
+  </section>
+
+</main>

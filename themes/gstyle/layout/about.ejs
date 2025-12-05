@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <%- partial('partials/head') %>
+    <title>About</title>
+    <link rel="stylesheet" href="/css/about.css">
+</head>
+
+<body>
+
+<main class="about-hero-section">
+
+    <div class="about-hero-inner">
+
+        <!-- Left text block -->
+        <div class="about-hero-text">
+            <h1 class="about-name">郑一鸣</h1>
+
+            <h3 class="about-title">
+                安徽建筑大学研究生<br>
+            </h3>
+
+            <!-- Social icons row (WeChat / Weibo / Email / Link) -->
+            <div class="about-icons">
+                <a href="https://github.com/zhngymn36181654"><img src="/img/github.svg"></a>
+                <!-- QQ 图标：桌面端直接唤起QQ，移动端弹出二维码 -->
+                <a href="javascript:void(0)" class="icon-item" id="qq-icon">
+                    <img src="/img/qq.png" alt="QQ">
+                </a>
+            </div>
+        </div>
+
+        <!-- Right photo block -->
+        <div class="about-hero-photo">
+            <img src="/img/avatar.jpg" alt="profile">
+        </div>
+
+    </div>
+
+</main>
+
+<section class="about-content">
+
+    <!-- Biography only (Apple style) -->
+    <div class="about-section">
+        <h2 class="section-title">Biography</h2>
+        <p class="section-text">
+            <!-- 占位文本，后续会写成 Apple 风格简介 -->
+            更新中。
+        </p>
+    </div>
+
+    <!-- Skills -->
+    <div class="about-section">
+        <h2 class="section-title">Skills</h2>
+        <ul class="section-list">
+            <li>Python 数据分析（NumPy / Pandas / Matplotlib）</li>
+            <li>Python 爬虫</li>
+            <li>MySQL 数据库与 SQL 查询优化</li>
+            <li>Git 版本管理</li>
+            <li>Linux 命令与环境使用</li>
+        </ul>
+    </div>
+
+    <!-- Projects -->
+    <div class="about-section">
+        <h2 class="section-title">Projects</h2>
+        <ul class="section-list">
+            <li>Blog（Apple Newsroom Style）</li>
+        </ul>
+    </div>
+
+</section>
+<!-- QQ 二维码弹窗 -->
+<div class="qq-modal">
+    <div class="qq-modal-content">
+        <span class="qq-close">&times;</span>
+        <h3>使用手机 QQ 扫码添加好友</h3>
+        <img src="/img/qq_qrcode.jpg" alt="QQ二维码" class="qq-qrcode">
+    </div>
+</div>
+
+
+<script>
+    // 点击 QQ 图标弹出二维码弹窗
+    const qqIcon = document.getElementById('qq-icon');
+    qqIcon.onclick = function () {
+    document.querySelector('.qq-modal').classList.add('show');
+};
+
+
+    // 点击关闭
+    document.querySelector('.qq-close').onclick = function() {
+        document.querySelector('.qq-modal').classList.remove('show');
+    };
+
+    document.querySelector('.qq-modal').onclick = function(e) {
+        if (e.target === document.querySelector('.qq-modal')) {
+            document.querySelector('.qq-modal').classList.remove('show');
+        }
+    };
+</script>
+
+
+</body>
+</html>

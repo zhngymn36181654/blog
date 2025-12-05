@@ -1,0 +1,73 @@
+/* Pagination Container */
+.pagination-ctrl {
+    margin: 80px auto;
+    padding: 20px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Helvetica, Arial, sans-serif;
+}
+
+/* 页码数字 */
+.pagination-text {
+    font-size: 18px;
+    font-weight: 500;
+    color: #1d1d1f;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pagination-current {
+    display: inline-block;
+    min-width: 40px;
+    padding: 4px 10px;
+    border: 1px solid #d2d2d7;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    background: #ffffff;
+}
+
+/* Arrow Button Base */
+.pagination-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #f5f5f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.pagination-btn:hover {
+    background: #e5e5ea;
+}
+
+.pagination-btn.disabled {
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+/* Left Arrow */
+.arrow-left,
+.arrow-right {
+    display: inline-block;
+    border: solid #6e6e73;
+    border-width: 0 3px 3px 0;
+    padding: 8px;
+}
+
+/* rotate to form arrow shapes */
+.arrow-left {
+    transform: rotate(135deg);
+}
+
+.arrow-right {
+    transform: rotate(-45deg);
+}

@@ -1,10 +1,14 @@
 <footer class="footer">
-    <p>由<a href="http://hexo.io/" target="_blank">Hexo</a>强力驱动，搭载<a href="https://github.com/wayou/hexo-theme-gstyle">gstyle</a>主题</p>
-    <p>
-        &copy; <%= date(new Date(), 'YYYY') %> <%= config.author || config.title %>
+  <div class="footer-inner">
+    <p class="footer-line">
+      Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
     </p>
+    <p class="footer-line">
+      © <%= date(new Date(), 'YYYY') %> Blog
+    </p>
+  </div>
 </footer>
+
 <%- js('lib/jquery') %>
 <%- js('js/main') %>
 <script src="<%- url_for('/js/newsroom-nav.js') %>"></script>
-
