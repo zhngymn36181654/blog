@@ -1,66 +1,160 @@
-/* hero */
-.archive-hero {
-    padding: 80px 0 40px;
-    text-align: center;
-    background: #f5f5f7;
+/* ==================================================
+   Apple Newsroom Archive Style - Final Fixed Version
+   ================================================== */
+
+:root {
+    --content-width: 980px;
+    --side-padding: 22px; /* 关键：统一所有容器的左右内边距 */
+    --nav-search-offset: 90px;
 }
-
-.archive-hero h1 {
-    font-size: 48px;
-    font-weight: 600;
-    color: #1d1d1f;
-}
-
-
-
-/* year title */
-.archive-year {
-    margin: 60px 0 20px;
-    font-size: 32px;
-    color: #1d1d1f;
-    font-weight: 600;
-}
-
-/* list wrapper */
-.archive-year-list {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
-
-
-.archive-item:last-child {
-    border-bottom: none;
-}
-
-
 
 /* ------------------------------
-   Archive 容器宽度（与导航栏完全对齐）
+   1. Filter Bar (Desktop Default)
+--------------------------------*/
+.archive-filter {
+    width: 100%;
+    background: rgba(245, 245, 247, 0.85);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.filter-inner {
+    width: 100%;
+    max-width: var(--content-width);
+    margin: 0 auto;
+    /* 强制与下方正文对齐 */
+    padding: 0 var(--side-padding); 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 桌面端布局 */
+.filter-desktop-view {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.filter-label {
+    font-size: 12px;
+    font-weight: 400;
+    color: #1d1d1f;
+    margin-right: 20px;
+    white-space: nowrap;
+}
+
+.filter-group-wrapper {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-right: var(--nav-search-offset); 
+}
+
+/* ------------------------------
+   Custom Select (Desktop)
+--------------------------------*/
+.custom-select {
+    position: relative;
+    width: 100%;
+    height: 40px;
+}
+
+.select-trigger {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.select-trigger:hover { background: rgba(255,255,255, 0.8); }
+
+.trigger-text {
+    font-size: 14px;
+    color: #1d1d1f;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.select-options {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    padding: 6px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s;
+    z-index: 999;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.custom-select.open .select-options {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.custom-select.open .trigger-icon { transform: rotate(180deg); }
+
+.option-item {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #1d1d1f;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.option-item:hover { background-color: #f5f5f7; }
+.option-item.selected::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 10'%3E%3Cpolyline points='1.5 6 4.5 9 10.5 1' fill='none' stroke='%231d1d1f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+/* ------------------------------
+   2. Content Area (Articles)
 --------------------------------*/
 .archive-content {
-    max-width: 980px;
+    max-width: var(--content-width);
     margin: 0 auto;
-    padding: 60px 20px;
+    /* 关键：这里的 padding 必须与 .filter-inner 一致 */
+    padding: 60px var(--side-padding);
 }
 
-/* ------------------------------
-   月份标题（如：10 月 2025）
---------------------------------*/
 .archive-month {
     font-size: 28px;
     font-weight: 600;
     color: #1d1d1f;
     margin-bottom: 24px;
     padding-bottom: 8px;
-
-    border-bottom: 1px solid rgba(0,0,0,0.08); /* Apple Hairline */
+    border-bottom: 1px solid rgba(0,0,0,0.08);
 }
-
-
-/* ------------------------------
-   单个卡片整体（Apple Newsroom 左图右文）
---------------------------------*/
 
 .archive-item {
     display: flex;
@@ -70,123 +164,296 @@
     text-decoration: none;
     color: inherit;
 }
+.archive-item:last-child { border-bottom: none; }
 
-
-/* ------------------------------
-   左侧图片区域（固定宽度）
---------------------------------*/
 .item-img {
     width: 320px;
-    height: 180px; /* 保持横版比例 16:9 */
+    height: 180px;
     flex-shrink: 0;
     border-radius: 12px;
     overflow: hidden;
     background: #f2f2f7;
 }
+.item-img img { width: 100%; height: 100%; object-fit: cover; }
 
-.item-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* ------------------------------
-   右侧文本区域
---------------------------------*/
 .item-text {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
+.item-category { font-size: 12px; font-weight: 600; color: #1d1d1f; margin-bottom: 8px; text-transform: uppercase; }
+.item-title { font-size: 24px; font-weight: 700; line-height: 1.1; color: #1d1d1f; margin: 0 0 12px; }
+.item-date { font-size: 14px; color: #86868b; }
 
-/* 分类（Topic）*/
-.item-category {
-    font-size: 14px;
-    font-weight: 500;
-    color: #6e6e73;
-    margin-bottom: 6px;
-    display: inline-block;
+
+
+/* ==================================================
+   3. Mobile Adaptation (Apple Native Style)
+   ================================================== */
+
+/* 桌面端隐藏移动端元素 */
+.mobile-filter-trigger,
+.mobile-filter-modal {
+    display: none;
 }
 
-/* 标题（Title）*/
-.item-title {
-    font-size: 22px;
-    font-weight: 600;
-    line-height: 1.25;
-    color: #1d1d1f;
-    margin: 0 0 10px;
+@media screen and (max-width: 768px) {
+    
+    /* ---------------------------------
+       A. 基础修正：隐藏桌面端
+    --------------------------------- */
+    .filter-desktop-view { display: none !important; }
+    
+    /* ---------------------------------
+       B. 触发按钮 (水平垂直绝对对齐)
+    --------------------------------- */
+    .mobile-filter-trigger {
+        display: flex;
+        align-items: center; /* 垂直居中 */
+        justify-content: center; /* 水平居中 */
+        gap: 6px;
+        height: 100%; 
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        color: #1d1d1f;
+        font-size: 14px;
+        font-family: inherit;
+    }
+    
+    /* 修复 SVG 可能存在的微小位移 */
+    .trigger-icon {
+        display: flex;
+        align-items: center;
+        height: 18px; 
+    }
+
+/* ---------------------------------
+       C. 正文列表：左图右文 (Pro 比例还原)
+    --------------------------------- */
+    .archive-content { 
+        padding-top: 20px; 
+    }
+    
+    .archive-item {
+        /* Row 布局 */
+        flex-direction: row; 
+        /* 顶部对齐：这是最稳妥的，让第一行文字和图片顶部水平线对齐 */
+        align-items: flex-start;
+        /* 增加间距：12px 太挤，16-18px 才有呼吸感 */
+        gap: 18px; 
+        padding: 24px 0; /* 增加垂直内边距，让列表不那么拥挤 */
+        height: auto;
+    }
+
+    .item-img {
+        /* 【关键修正 1】宽度给到 130px，保证图片够大，不显得小气 */
+        width: 130px;
+        
+        /* 【关键修正 2】强制 16:9 比例 (黄金宽屏比例) */
+        /* 这样你的 China Unicom 这种宽图就会完整显示，不会被切成正方形 */
+        aspect-ratio: 16 / 9;
+        height: auto; /* 让高度自动根据比例计算 */
+        
+        flex-shrink: 0;
+        border-radius: 8px; /* 稍微圆润一点 */
+        background-color: #f5f5f7; /* 图片加载前的占位背景色 */
+        
+        /* 确保内部 img 标签填满这个 16:9 的容器 */
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .item-img img {
+        width: 100%;
+        height: 100%;
+        /* 依然使用 cover，但因为容器已经是 16:9 了，所以只会裁掉极少边缘，保证填满 */
+        object-fit: cover; 
+        transition: transform 0.3s ease;
+    }
+
+    .item-text {
+        flex: 1; /* 填满剩余右侧空间 */
+        display: flex;
+        flex-direction: column;
+        /* 均匀分布文字间距 */
+        gap: 6px; 
+        
+        /* 【视觉微调】 */
+        /* 因为图片有 16:9 的高度，文字如果没有 padding-top，可能会显得比图片高一点点（视觉错觉） */
+        /* 加 2px 让第一行文字看起来跟图片绝对顶部对齐 */
+        padding-top: 2px;
+        
+        min-width: 0; /* 防止 Flex 子项溢出 */
+    }
+
+    .item-category {
+        font-size: 11px;
+        color: #1d1d1f;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        opacity: 0.8;
+    }
+
+    .item-title {
+        /* 标题字号 */
+        font-size: 17px;
+        font-weight: 700;
+        color: #1d1d1f;
+        /* 增加行高：美感的来源 */
+        line-height: 1.4; 
+        
+        /* 限制行数：超过3行显示省略号，保持列表整洁 */
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .item-date {
+        font-size: 13px;
+        color: #86868b;
+        /* 字体设计感：数字稍微分开一点 */
+        letter-spacing: 0.01em; 
+        margin-top: 4px; 
+    }
+
+    /* ---------------------------------
+       D. 全屏模态框 (Flex Accordion 核心逻辑)
+    --------------------------------- */
+    .mobile-filter-modal {
+        /* 布局容器 */
+        display: flex;
+        flex-direction: column;
+        
+        /* 全屏定位 */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh; /* 适配 iOS 动态栏 */
+        background: #fff;
+        z-index: 9999;
+        
+        /* 交互：无位移动画，只有显隐 */
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease;
+    }
+
+    .mobile-filter-modal.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* 1. 头部 (固定高度) */
+    .modal-header {
+        flex: 0 0 56px; 
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        position: relative;
+    }
+
+    /* 2. 主体 (弹性容器) -> 核心 */
+    .modal-body {
+        flex: 1; /* 占满 Header 和 Footer 之间的空间 */
+        display: flex;
+        flex-direction: column; /* 垂直排列 Item */
+        overflow: hidden; /* ★ 禁止 Body 整体滚动，交给 Item 内部滚 */
+        padding: 0 20px;
+    }
+
+    /* 3. 底部 (固定高度) */
+    .modal-footer {
+        flex: 0 0 auto;
+        padding: 20px;
+        background: #fff;
+        border-top: 1px solid rgba(0,0,0,0.1);
+        padding-bottom: max(20px, env(safe-area-inset-bottom));
+    }
+
+    /* ---------------------------------
+       E. 手风琴 Item (撑满逻辑)
+    --------------------------------- */
+    .accordion-item {
+        /* 默认状态：收起，高度由 Header 决定 */
+        flex: 0 0 auto; 
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        transition: all 0.2s ease; /* 可选：平滑过渡 flex 变化 */
+    }
+
+    /* ★ 展开状态 (Open) */
+    .accordion-item.open {
+        /* 关键：flex-grow 为 1，强行霸占所有剩余空间 */
+        flex: 1 1 auto; 
+        /* 关键：展开时去掉底边框 */
+        border-bottom: none;
+        /* 必须 hidden，防止内容溢出撑破 Flex 容器 */
+        overflow: hidden;
+    }
+
+    .accordion-header {
+        /* 标题高度固定 */
+        flex: 0 0 54px; 
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        background: #fff;
+    }
+
+    /* 内容区域 */
+    .accordion-content {
+        /* 默认隐藏 */
+        display: none;
+    }
+
+    /* ★ 展开后的内容区域 */
+    .accordion-item.open .accordion-content {
+        /* 显示出来 */
+        display: block; 
+        /* 在父级 flex:1 的格子里，它要占满剩余高度 */
+        flex: 1;
+        /* ★ 核心：只有这里允许滚动！ */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 20px;
+    }
+
+    /* ---------------------------------
+       F. 细节样式
+    --------------------------------- */
+    .modal-close { 
+        background: none; border: none; padding: 10px; margin-left: -10px; 
+        display: flex; align-items: center; cursor: pointer;
+    }
+    .modal-title { 
+        position: absolute; left: 48px; font-size: 17px; font-weight: 600; color: #1d1d1f; 
+    }
+    .modal-done-btn { 
+        width: 100%; height: 50px; background: #0071e3; color: #fff; 
+        font-size: 17px; font-weight: 600; border: none; border-radius: 12px; cursor: pointer; 
+    }
+    .mobile-option { 
+        padding: 14px 0; font-size: 14px; border-bottom: 1px solid #f5f5f7; 
+        display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+    }
+    .mobile-option.selected { 
+        color: #0071e3; font-weight: 600;
+        background-image: url("data:image/svg+xml,%3Csvg width='12' height='10' viewBox='0 0 12 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 5L4.5 8.5L11 1.5' stroke='%230071e3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat; background-position: right center;
+    }
+    .accordion-item.open .accordion-icon { transform: rotate(45deg); }
 }
-
-/* 日期（Date）*/
-.item-date {
-    font-size: 16px;
-    color: #6e6e73;
-}
-
-
-/* ------------------------------
-   顶部筛选栏 Apple 风格
---------------------------------*/
-.archive-filter {
-    width: 100%;
-    background: #f5f5f7;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    padding: 16px 0;
-}
-
-/* 左右居中 */
-.filter-inner {
-    max-width: 980px;
-    margin: 0 auto;
-    padding: 0 20px;
-
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-/* “筛选”文字 */
-.filter-label {
-    font-size: 14px;
-    font-weight: 600;
-    color: #6e6e73;
-    margin-right: 2px;
-}
-
-/* Apple 胶囊 */
-.filter-capsule {
-    background: #ffffff;
-    border-radius: 999px;
-    border: 1px solid rgba(0,0,0,0.1);
-    padding: 6px 14px;
-}
-
-/* 鼠标移上去 */
-.filter-capsule:hover {
-    background: #f0f0f2;
-}
-
-/* 内部下拉框（隐藏系统样式） */
-.filter-capsule select {
-    border: none;
-    outline: none;
-    background: transparent;
-
-    font-size: 14px;
-    color: #1d1d1f;
-    font-weight: 500;
-
-    appearance: none;
-    cursor: pointer;
-
-    padding-right: 18px;
-}
-
-/* 下拉箭头（苹果灰） */
-.filter-capsule select {
-    background-image: url('data:image/svg+xml;utf8,<svg fill="%236e6e73" height="12" width="12" viewBox="0 0 20 20"><path d="M5 7l5 5 5-5z"/></svg>');
-    background-repeat: no-repeat;
-    background-position: right 0 center;
-}
-

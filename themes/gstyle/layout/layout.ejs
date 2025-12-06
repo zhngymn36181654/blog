@@ -1,6 +1,14 @@
 <!DOCTYPE html>
-          <%- partial('partials/head') %>
-    <body>
+    <%- partial('partials/head') %>
+    <% 
+    let bodyClass = 'page-other';
+    if (is_home()) bodyClass = 'page-home';
+    else if (is_post()) bodyClass = 'page-post';
+    else if (is_archive()) bodyClass = 'page-archive';
+    else if (page.layout === 'about') bodyClass = 'page-about';
+    %>
+
+    <body class="<%= bodyClass %>">
         <header>
             <!-- cover image or sth. -->
         </header>

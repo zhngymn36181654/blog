@@ -46,7 +46,7 @@ body {
   font-size: 17px;
   line-height: 1.47;
   color: var(--text-primary);
-  background-color: var(--bg-color);
+  background-color: var(--card-bg);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -82,6 +82,13 @@ img {
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* 2. 特例状态（仅在 Archive 页面）：
+   因为 Archive 页面有筛选器需要吸顶，所以 Nav 必须“让位”滚走 */
+body.page-archive .ac-ln-shell {
+  position: relative !important; /* 强制覆盖，让它随页面滚走 */
+  /* 其他样式继承上面的，不需要重写 */
 }
 
 /* 宽度 & 对齐：与正文、卡片完全一致 */

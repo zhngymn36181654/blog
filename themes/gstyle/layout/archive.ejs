@@ -3,13 +3,13 @@
 <head>
     <%- partial('partials/head') %>
     <title>Archive</title>
-    <link rel="stylesheet" href="/css/archive.css">
-    <link rel="stylesheet" href="/css/pagination.css">
+    <link rel="stylesheet" href="<%- url_for('/css/archive.css') %>">
+    <link rel="stylesheet" href="<%- url_for('/css/pagination.css') %>">
 </head>
 
 <body>
+
 <%
-    // 归档页要用的数据
     const allPosts = site.posts.sort('date', -1);
     const years = Array.from(new Set(allPosts.map(p => p.date.year()))).sort((a,b)=>b-a);
 %>
@@ -17,44 +17,121 @@
 <section class="archive-filter">
     <div class="filter-inner">
 
-        <span class="filter-label">筛选</span>
-
-        <!-- 分类 -->
-        <div class="filter-capsule">
-            <select id="filter-category" onchange="changeFilter()">
-                <option value="all">所有话题</option>
-                <% site.categories.forEach(cat => { %>
-                    <option value="<%= cat.name %>"><%= cat.name %></option>
-                <% }) %>
-            </select>
+        <div class="filter-desktop-view">
+            <span class="filter-label">筛选</span>
+            <div class="filter-group-wrapper">
+                <div class="custom-select" id="select-category">
+                    <div class="select-trigger">
+                        <span class="trigger-text">所有话题</span>
+                        <span class="trigger-icon">
+                            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="#1d1d1f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                    </div>
+                    <div class="select-options">
+                        <div class="option-item selected" data-value="all">所有话题</div>
+                        <% site.categories.forEach(cat => { %>
+                            <div class="option-item" data-value="<%= cat.name %>"><%= cat.name %></div>
+                        <% }) %>
+                    </div>
+                </div>
+                <div class="custom-select" id="select-year">
+                    <div class="select-trigger">
+                        <span class="trigger-text">全部年份</span>
+                        <span class="trigger-icon">
+                             <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="#1d1d1f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                    </div>
+                    <div class="select-options">
+                        <div class="option-item selected" data-value="all">全部年份</div>
+                        <% years.forEach(y => { %>
+                            <div class="option-item" data-value="<%= y %>"><%= y %></div>
+                        <% }) %>
+                    </div>
+                </div>
+                <div class="custom-select" id="select-month">
+                    <div class="select-trigger">
+                        <span class="trigger-text">全部月份</span>
+                        <span class="trigger-icon">
+                             <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="#1d1d1f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                    </div>
+                    <div class="select-options">
+                        <div class="option-item selected" data-value="all">全部月份</div>
+                        <% for (let m=1; m<=12; m++) { %>
+                            <div class="option-item" data-value="<%= m %>"><%= m %> 月</div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- 年份 -->
-        <div class="filter-capsule">
-            <select id="filter-year" onchange="changeFilter()">
-                <option value="all">全部年份</option>
-                <% years.forEach(y => { %>
-                    <option value="<%= y %>"><%= y %></option>
-                <% }) %>
-            </select>
-        </div>
-
-        <!-- 月份 -->
-        <div class="filter-capsule">
-            <select id="filter-month" onchange="changeFilter()">
-                <option value="all">全部月份</option>
-                <% for (let m=1; m<=12; m++) { %>
-                    <option value="<%= m %>"><%= m %> 月</option>
-                <% } %>
-            </select>
-        </div>
+        <button class="mobile-filter-trigger" id="mobile-filter-btn">
+            <span class="trigger-icon">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 4.5H16M2 9H16M2 13.5H16" stroke="#1d1d1f" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </span>
+            <span class="trigger-label">筛选</span>
+        </button>
 
     </div>
 </section>
 
-<!-- 内容区域 -->
-<section class="archive-content">
+<div class="mobile-filter-modal" id="mobile-modal">
+    <div class="modal-header">
+        <button class="modal-close" id="modal-close-btn">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1L13 13M13 1L1 13" stroke="#86868b" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+        </button>
+        <span class="modal-title">筛选话题</span>
+    </div>
 
+    <div class="modal-body">
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <span>所有话题</span>
+                <span class="accordion-icon">+</span>
+            </div>
+            <div class="accordion-content">
+                <div class="mobile-option selected" data-type="category" data-value="all">所有话题</div>
+                <% site.categories.forEach(cat => { %>
+                    <div class="mobile-option" data-type="category" data-value="<%= cat.name %>"><%= cat.name %></div>
+                <% }) %>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <span>全部年份</span>
+                <span class="accordion-icon">+</span>
+            </div>
+            <div class="accordion-content">
+                <div class="mobile-option selected" data-type="year" data-value="all">全部年份</div>
+                <% years.forEach(y => { %>
+                    <div class="mobile-option" data-type="year" data-value="<%= y %>"><%= y %></div>
+                <% }) %>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <span>全部月份</span>
+                <span class="accordion-icon">+</span>
+            </div>
+            <div class="accordion-content">
+                <div class="mobile-option selected" data-type="month" data-value="all">全部月份</div>
+                <% for (let m=1; m<=12; m++) { %>
+                    <div class="mobile-option" data-type="month" data-value="<%= m %>"><%= m %> 月</div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="modal-done-btn" id="modal-done-btn">完成</button>
+    </div>
+</div>
+
+<section class="archive-content">
 <%
 const posts = page.posts;
 let currentYear = null;
@@ -64,81 +141,38 @@ posts.forEach(post => {
     const year = post.date.year();
     const month = post.date.month() + 1;
 %>
-
     <% if (year !== currentYear || month !== currentMonth) { %>
-
-        <% if (currentYear !== null) { %>
-            </div> <!-- close prev list -->
-        <% } %>
-
+        <% if (currentYear !== null) { %> </div></div> <% } %>
         <div class="archive-month-block">
-            <h2 class="archive-month">
-                <%= month %> 月 <%= year %>
-            </h2>
+            <h2 class="archive-month"><%= month %> 月 <%= year %></h2>
             <div class="archive-list">
     <%  
         currentYear = year;
         currentMonth = month;
     } 
     %>
-
-    <!-- Apple Newsroom 卡片 -->
     <a href="<%= url_for(post.path) %>" class="archive-item">
-
         <% 
-            // 默认图片
-            let thumb = '/img/placeholder.png';
-
-            // 如果文章 front-matter 里有 cover 字段
+            let thumb = '/img/placeholder.png'; 
             if (post.cover) {
                 const dir = post.path.replace(/index\.html$/, '');
                 thumb = '/' + dir + post.cover;
             }
         %>
-
         <div class="item-img">
-            <img src="<%= thumb %>" alt="">
+            <img src="<%= thumb %>" alt="<%= post.title %>" loading="lazy">
         </div>
-
         <div class="item-text">
             <span class="item-category"><%= post.categories.data[0]?.name || '未分类' %></span>
             <h3 class="item-title"><%= post.title %></h3>
             <span class="item-date"><%= date(post.date, 'YYYY 年 M 月 D 日') %></span>
         </div>
-
     </a>
-
-
-
 <% }) %>
-
-</div><!-- last block -->
-
+    <% if (currentYear !== null) { %> </div></div> <% } %>
 </section>
 
-<!-- 分页 -->
 <%- partial('partials/pagination') %>
-
-
-
-<script>
-function changeFilter() {
-    const c = document.getElementById('filter-category').value;
-    const y = document.getElementById('filter-year').value;
-    const m = document.getElementById('filter-month').value;
-
-    let url = "/archive/";
-    let query = [];
-
-    if (c !== "all") query.push("category=" + c);
-    if (y !== "all") query.push("year=" + y);
-    if (m !== "all") query.push("month=" + m);
-
-    if (query.length) url += "?" + query.join("&");
-
-    window.location.href = url;
-}
-</script>
-
+<script src="<%- url_for('/js/archive.js') %>"></script>
 </body>
 </html>
