@@ -1,53 +1,72 @@
 document.addEventListener('DOMContentLoaded', function () {
 
   const menu = document.querySelector('.ac-ln-menu');
-  if (!menu) return;
+  const chevronWrapper = document.querySelector('.ac-ln-menucta');
+  const tray = document.querySelector('.ac-ln-menu-tray');
+  const navLinks = document.querySelectorAll('.ac-ln-menu-tray .local-nav-link');
 
-  const openBtn  = document.getElementById('ac-ln-menustate-open');
-  const closeBtn = document.getElementById('ac-ln-menustate-close');
-  const tray     = document.querySelector('.ac-ln-menu-tray');
-  const chevron  = document.querySelector('.ac-ln-menucta');
-
-  // SVG 动画引用
-  const svg = document.querySelector('.ac-ln-menucta-chevron svg');
-  const expandAnim   = svg?.querySelector('[data-anim="expand"]');
-  const collapseAnim = svg?.querySelector('[data-anim="collapse"]');
+  // --- SVG animate 对象 ---
+  const expand = document.getElementById('ac-chevron-expand');
+  const collapse = document.getElementById('ac-chevron-collapse');
 
   let isOpen = false;
+  let arrowTimer = null;
 
-  function playExpand() {
-    if (expandAnim) expandAnim.beginElement();
-  }
+  if (!menu || !chevronWrapper) return;
 
-  function playCollapse() {
-    if (collapseAnim) collapseAnim.beginElement();
-  }
-
+  /* ===============================
+     打开菜单
+     =============================== */
   function openMenu() {
-  if (isOpen) return;
-  isOpen = true;
+    if (isOpen) return;
+    isOpen = true;
 
-  menu.classList.add('ac-ln-menu-open');
+    // 背景 / tray 出现
+    menu.classList.add('ac-ln-menu-open');
+    document.body.style.overflow = 'hidden';
 
-  openBtn.style.display = 'none';
-  closeBtn.style.display = 'flex';
+    // 选项依次 reveal
+    navLinks.forEach((link, index) => {
+      const delay = 150 + index * 150;
+      setTimeout(() => {
+        if (isOpen) link.classList.add('revealed');
+      }, delay);
+    });
 
-  playExpand();
+    // 清除旧定时器
+    if (arrowTimer) clearTimeout(arrowTimer);
+
+    // 延迟触发苹果原版箭头动画
+    arrowTimer = setTimeout(() => {
+      if (isOpen && expand) expand.beginElement();
+    }, 300);
   }
 
+  /* ===============================
+     关闭菜单
+     =============================== */
   function closeMenu() {
-  if (!isOpen) return;
-  isOpen = false;
+    if (!isOpen) return;
+    isOpen = false;
 
-  menu.classList.remove('ac-ln-menu-open');
+    // tray 消失
+    menu.classList.remove('ac-ln-menu-open');
+    document.body.style.overflow = '';
 
-  openBtn.style.display = 'flex';
-  closeBtn.style.display = 'none';
+    // 链接复位
+    navLinks.forEach(link => link.classList.remove('revealed'));
 
-  playCollapse();
+    if (arrowTimer) clearTimeout(arrowTimer);
+
+    // 延迟触发 collapse 动画
+    arrowTimer = setTimeout(() => {
+      if (!isOpen && collapse) collapse.beginElement();
+    }, 150);
   }
 
-
+  /* ===============================
+     切换
+     =============================== */
   function toggleMenu() {
     if (isOpen) {
       closeMenu();
@@ -56,37 +75,19 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // 小三角点击
-  chevron.addEventListener('click', function (e) {
+  // Chevron 点击监听
+  chevronWrapper.addEventListener('click', function (e) {
     e.preventDefault();
     toggleMenu();
   });
 
-  // Open 按钮点击
-  openBtn.addEventListener('click', function (e) {
-    e.preventDefault();
-    toggleMenu();
-  });
-
-  // Close 按钮点击
-  closeBtn.addEventListener('click', function (e) {
-    e.preventDefault();
-    toggleMenu();
-  });
-
-  // 点菜单内的链接自动关闭
-  tray.addEventListener('click', function (e) {
-    if (e.target.tagName === 'A') {
-      closeMenu();
-    }
-  });
-
-  // 点页面其它地方关闭菜单
-  document.addEventListener('click', function (e) {
-    if (!isOpen) return;
-    if (!menu.contains(e.target)) {
-      closeMenu();
-    }
-  });
+  // 点击 tray 内容收起菜单
+  if (tray) {
+    tray.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A' || e.target.closest('a')) {
+        toggleMenu();
+      }
+    });
+  }
 
 });

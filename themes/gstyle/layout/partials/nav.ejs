@@ -19,28 +19,55 @@
 
         <!-- Mobile Actions: Menu Toggle + Search Capsule + Tray -->
         <div class="ac-ln-actions">
-
           <!-- Mobile Menu Toggle + Chevron -->
           <div class="ac-ln-action ac-ln-action-menucta">
-            <button class="ac-ln-menucta-anchor ac-ln-menucta-anchor-open" id="ac-ln-menustate-open" aria-expanded="false">
-              <span class="ac-ln-menucta-anchor-label">Open navigation</span>
-            </button>
-            <button class="ac-ln-menucta-anchor ac-ln-menucta-anchor-close" id="ac-ln-menustate-close" aria-expanded="true">
-              <span class="ac-ln-menucta-anchor-label">Close navigation</span>
-            </button>
-
-            <!-- Chevron -->
-            <label class="ac-ln-menucta">
+            <label class="ac-ln-menucta" id="ac-ln-menustate-trigger">
               <span class="ac-ln-menucta-chevron">
-                <svg viewBox="0 0 16 9" xmlns="http://www.w3.org/2000/svg">
-                  <polyline stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none" points="15.2 0.9 8 8.1 0.8 0.9">
-                    <animate data-anim="expand" attributeName="points" dur="0.32s" begin="indefinite" fill="freeze" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.12 0 0.38 0;0.2 1 0.68 1" values="15.2 0.9 8 8.1 0.8 0.9;15.2 4.5 8 4.5 0.8 4.5;15.2 8.1 8 0.9 0.8 8.1" />
-                    <animate data-anim="collapse" attributeName="points" dur="0.32s" begin="indefinite" fill="freeze" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.2 0 0.68 0;0.2 1 0.68 1" values="15.2 8.1 8 0.9 0.8 8.1;15.2 4.5 8 4.5 0.8 4.5;15.2 0.9 8 8.1 0.8 0.9" />
+                <svg viewBox="0 0 16 9" class="ac-ln-chevron-svg">
+                  <polyline id="ac-chevron-poly"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    vector-effect="non-scaling-stroke"
+                    fill="none"
+                    points="15.265 .835 8 8.167 .735 .835">
+
+                    <!-- 展开动画 (V → 平线 → ^) -->
+                    <animate id="ac-chevron-expand"
+                      attributeName="points"
+                      begin="indefinite"
+                      dur="320ms"
+                      fill="freeze"
+                      keyTimes="0; 0.5; 1"
+                      calcMode="spline"
+                      keySplines="0.12,0,0.38,0; 0.2,1,0.68,1"
+                      values="
+                        15.265 .835 8 8.167 .735 .835;
+                        15.25 4.5 8 4.5 .75 4.5;
+                        15.265 8.165 8 .835 .735 8.165
+                      " />
+
+                    <!-- 收起动画 (^ → 平线 → V) -->
+                    <animate id="ac-chevron-collapse"
+                      attributeName="points"
+                      begin="indefinite"
+                      dur="320ms"
+                      fill="freeze"
+                      keyTimes="0; 0.5; 1"
+                      calcMode="spline"
+                      keySplines="0.2,0,0.68,0; 0.2,1,0.68,1"
+                      values="
+                        15.265 8.165 8 .835 .735 8.165;
+                        15.25 4.5 8 4.5 .75 4.5;
+                        15.265 .835 8 8.167 .735 .835
+                      " />
+
                   </polyline>
                 </svg>
               </span>
             </label>
           </div>
+
 
           <!-- Mobile Search Capsule -->
           <div class="ac-ln-action ac-ln-action-search">
@@ -61,8 +88,12 @@
         <!-- Mobile Dropdown Tray -->
         <div class="ac-ln-menu-tray">
           <ul class="ac-ln-menu-items">
-            <li class="ac-ln-menu-item"><a class="ac-ln-menu-link" href="<%- url_for('/archives') %>">Archive</a></li>
-            <li class="ac-ln-menu-item"><a class="ac-ln-menu-link" href="<%- url_for('/about') %>">About</a></li>
+            <li class="ac-ln-menu-item">
+              <a class="ac-ln-menu-link local-nav-link" href="<%- url_for('/archives') %>">Archive</a>
+            </li>
+            <li class="ac-ln-menu-item">
+              <a class="ac-ln-menu-link local-nav-link" href="<%- url_for('/about') %>">About</a>
+            </li>
           </ul>
         </div>
       </div>
