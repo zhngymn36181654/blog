@@ -6,101 +6,44 @@
     <link rel="stylesheet" href="/css/about.css">
 </head>
 
-<body>
+<body class="page-about">
 
-<main class="about-hero-section">
+    <main class="about-page">
+        <section class="about-hero">
+            <div class="about-hero__grid">
+                <div class="about-hero__copy">
+                    <h1 class="about-hero__title">郑一鸣</h1>
+                    <p class="about-hero__subtitle">安徽建筑大学 · 电子与信息工程学院 · 研究生</p>
+                    <p class="about-hero__tagline">在平凡中向上，在向上中超凡。</p>
 
-    <div class="about-hero-inner">
+                    <div class="about-hero__contacts">
+                        <img class="contact-icon" src="/img/qq.png" alt="QQ" data-qq-trigger>
+                        <a class="contact-icon" href="https://github.com/zhngymn36181654" target="_blank" rel="noreferrer noopener" aria-label="GitHub">
+                            <img src="/img/github.svg" alt="GitHub">
+                        </a>
+                    </div>
+                </div>
 
-        <!-- Left text block -->
-        <div class="about-hero-text">
-            <h1 class="about-name">郑一鸣</h1>
+                <div class="about-hero__visual">
+                    <div class="avatar-card">
+                        <div class="avatar-card__glow" aria-hidden="true"></div>
+                        <img class="avatar-card__img" src="/img/avatar.jpg" alt="郑一鸣头像">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-            <h3 class="about-title">
-                安徽建筑大学研究生<br>
-            </h3>
-
-            <!-- Social icons row (WeChat / Weibo / Email / Link) -->
-            <div class="about-icons">
-                <a href="https://github.com/zhngymn36181654"><img src="/img/github.svg"></a>
-                <!-- QQ 图标：桌面端直接唤起QQ，移动端弹出二维码 -->
-                <a href="javascript:void(0)" class="icon-item" id="qq-icon">
-                    <img src="/img/qq.png" alt="QQ">
-                </a>
+    <div class="qq-modal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="qq-modal__backdrop" data-qq-close></div>
+        <div class="qq-modal__card" role="document">
+            <button class="qq-modal__close" type="button" aria-label="关闭" data-qq-close>×</button>
+            <div class="qq-modal__body">
+                <img src="/img/qq_qrcode.jpg" alt="QQ 二维码" class="qq-modal__qr">
+                <p class="qq-modal__text">QQ：3486362780</p>
             </div>
         </div>
-
-        <!-- Right photo block -->
-        <div class="about-hero-photo">
-            <img src="/img/avatar.jpg" alt="profile">
-        </div>
-
     </div>
-
-</main>
-
-<section class="about-content">
-
-    <!-- Biography only (Apple style) -->
-    <div class="about-section">
-        <h2 class="section-title">Biography</h2>
-        <p class="section-text">
-            <!-- 占位文本，后续会写成 Apple 风格简介 -->
-            更新中。
-        </p>
-    </div>
-
-    <!-- Skills -->
-    <div class="about-section">
-        <h2 class="section-title">Skills</h2>
-        <ul class="section-list">
-            <li>Python 数据分析（NumPy / Pandas / Matplotlib）</li>
-            <li>Python 爬虫</li>
-            <li>MySQL 数据库与 SQL 查询优化</li>
-            <li>Git 版本管理</li>
-            <li>Linux 命令与环境使用</li>
-        </ul>
-    </div>
-
-    <!-- Projects -->
-    <div class="about-section">
-        <h2 class="section-title">Projects</h2>
-        <ul class="section-list">
-            <li>Blog（Apple Newsroom Style）</li>
-        </ul>
-    </div>
-
-</section>
-<!-- QQ 二维码弹窗 -->
-<div class="qq-modal">
-    <div class="qq-modal-content">
-        <span class="qq-close">&times;</span>
-        <h3>使用手机 QQ 扫码添加好友</h3>
-        <img src="/img/qq_qrcode.jpg" alt="QQ二维码" class="qq-qrcode">
-    </div>
-</div>
-
-
-<script>
-    // 点击 QQ 图标弹出二维码弹窗
-    const qqIcon = document.getElementById('qq-icon');
-    qqIcon.onclick = function () {
-    document.querySelector('.qq-modal').classList.add('show');
-};
-
-
-    // 点击关闭
-    document.querySelector('.qq-close').onclick = function() {
-        document.querySelector('.qq-modal').classList.remove('show');
-    };
-
-    document.querySelector('.qq-modal').onclick = function(e) {
-        if (e.target === document.querySelector('.qq-modal')) {
-            document.querySelector('.qq-modal').classList.remove('show');
-        }
-    };
-</script>
-
-
+    <script src="/js/about.js"></script>
 </body>
 </html>
