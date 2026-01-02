@@ -8,9 +8,7 @@
         <%= date(page.date, 'YYYY 年 M 月 D 日') %>
       </div>
       <h1 class="article-title"><%= page.title %></h1>
-      <!-- <span>
-        浏览量：<span id="view-count">-</span>
-      </span> -->
+      <span id="busuanzi_value_page_pv">Loading...</span> 次阅读
 
     </header>
   </section>
@@ -34,32 +32,32 @@
 </main>
 
 <script>
-  const slug = window.location.pathname;
-  const API_BASE = "http://127.0.0.1:8000";
+  var articleId = "/" + "<%= page.path %>";
+  var title = "<%- page.title %>";
+  var path = articleId;
 
-  const STORAGE_KEY = `viewed_once:${slug}`;
-
-  window.addEventListener("load", function () {
-
-    // 只在本次页面会话内 +1
-    if (!sessionStorage.getItem(STORAGE_KEY)) {
-      fetch(`${API_BASE}/api/views${slug}`, {
-        method: "POST"
-      }).finally(() => {
-        sessionStorage.setItem(STORAGE_KEY, "1");
-      });
-    }
-
-    // 始终获取当前浏览量
-    fetch(`${API_BASE}/api/views${slug}`)
-      .then(res => res.json())
-      .then(data => {
-        const viewEl = document.getElementById("view-count");
-        if (viewEl) {
-          viewEl.innerText = data.view_count;
-        }
-      });
-
+  fetch("https://api.lostround.xyz/view-count/" + encodeURIComponent(articleId) + "/visit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title: title, path: path })
+  })
+  .then(async (res) => {
+    const text = await res.text();
+    if (!res.ok) throw new Error("HTTP " + res.status + " " + text);
+    return JSON.parse(text);
+  })
+  .then((data) => {
+    document.getElementById("busuanzi_value_page_pv").innerText = data.views;
+  })
+  .catch((err) => {
+    console.error("view-count error:", err);
+    document.getElementById("busuanzi_value_page_pv").innerText = "统计失败";
   });
 </script>
+
+
+
+
+
+
 
