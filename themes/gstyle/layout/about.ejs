@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <%- partial('partials/head') %>
     <title>About</title>
@@ -9,41 +9,16 @@
 <body class="page-about">
 
     <main class="about-page">
-        <section class="about-hero">
-            <div class="about-hero__grid">
-                <div class="about-hero__copy">
-                    <h1 class="about-hero__title">郑一鸣</h1>
-                    <p class="about-hero__subtitle">安徽建筑大学 · 电子与信息工程学院 · 研究生</p>
-                    <p class="about-hero__tagline">在平凡中向上，在向上中超凡。</p>
+        <div class="about-content">
+            <p>I'm Zheng Yiming and this is my blog.</p>
 
-                    <div class="about-hero__contacts">
-                        <img class="contact-icon" src="/img/qq.png" alt="QQ" data-qq-trigger>
-                        <a class="contact-icon" href="https://github.com/zhngymn36181654" target="_blank" rel="noreferrer noopener" aria-label="GitHub">
-                            <img src="/img/github.svg" alt="GitHub">
-                        </a>
-                    </div>
-                </div>
+            <p>I am a graduate student at Anhui Jianzhu University. In my free time you can find me running, listening to music, working out, and playing CS:GO.</p>
 
-                <div class="about-hero__visual">
-                    <div class="avatar-card">
-                        <div class="avatar-card__glow" aria-hidden="true"></div>
-                        <img class="avatar-card__img" src="/img/avatar.jpg" alt="郑一鸣头像">
-                    </div>
-                </div>
-            </div>
-        </section>
+            <p class="social-links">
+                Find me on <a href="https://x.com/zhngymn36181654" target="_blank" rel="noreferrer noopener">X</a> and <a href="https://github.com/zhngymn36181654" target="_blank" rel="noreferrer noopener">Github</a>.
+            </p>
+        </div>
     </main>
 
-    <div class="qq-modal" aria-hidden="true" role="dialog" aria-modal="true">
-        <div class="qq-modal__backdrop" data-qq-close></div>
-        <div class="qq-modal__card" role="document">
-            <button class="qq-modal__close" type="button" aria-label="关闭" data-qq-close>×</button>
-            <div class="qq-modal__body">
-                <img src="/img/qq_qrcode.jpg" alt="QQ 二维码" class="qq-modal__qr">
-                <p class="qq-modal__text">QQ：3486362780</p>
-            </div>
-        </div>
-    </div>
-    <script src="/js/about.js"></script>
 </body>
 </html>

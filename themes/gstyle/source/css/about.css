@@ -1,246 +1,63 @@
-/* 基础 */
-:root {
-	--about-bg: #f6f8fb;
-	--about-surface: rgba(255, 255, 255, 0.78);
-	--about-border: rgba(15, 23, 42, 0.08);
-	--about-text: #0f172a;
-	--about-muted: #475569;
-	--about-accent: #2563eb;
-	--about-shadow: 0 18px 50px rgba(15, 23, 42, 0.10);
-	--about-radius: 20px;
-}
+/* Minimal About Page - Boris Cherny style */
 
 body.page-about {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-	background: radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.12), transparent 32%),
-				radial-gradient(circle at 80% 0%, rgba(14, 165, 233, 0.16), transparent 38%),
-				var(--about-bg);
-	color: var(--about-text);
-	margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: #fff;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.6;
 }
 
 .about-page {
-	padding: 96px 24px;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 120px 24px 80px;
 }
 
-.about-hero {
-	max-width: 1100px;
-	margin: 0 auto;
-	background: var(--about-surface);
-	border: 1px solid var(--about-border);
-	border-radius: calc(var(--about-radius) + 4px);
-	box-shadow: var(--about-shadow);
-	backdrop-filter: blur(16px);
-	-webkit-backdrop-filter: blur(16px);
-	padding: 64px;
+.about-content h1 {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0 0 24px;
+    color: #1a1a1a;
 }
 
-.about-hero__grid {
-	display: grid;
-	grid-template-columns: 1.1fr 0.9fr;
-	gap: 48px;
-	align-items: center;
+.about-content p {
+    font-size: 17px;
+    line-height: 1.7;
+    margin: 0 0 20px;
+    color: #333;
 }
 
-.about-hero__eyebrow {
-	font-size: 14px;
-	letter-spacing: 0.14em;
-	text-transform: uppercase;
-	color: var(--about-muted);
-	margin: 0 0 12px;
+.social-links {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #333;
 }
 
-.about-hero__title {
-	font-size: 46px;
-	line-height: 1.05;
-	margin: 0 0 12px;
+.social-links a {
+    color: #0066cc;
+    text-decoration: none;
+    transition: color 0.15s ease;
 }
 
-.about-hero__subtitle {
-	font-size: 18px;
-	color: var(--about-muted);
-	margin: 0 0 16px;
+.social-links a:hover {
+    color: #004499;
+    text-decoration: underline;
 }
 
-.about-hero__tagline {
-	font-size: 20px;
-	font-weight: 500;
-	margin: 0 0 28px;
-}
+/* Responsive */
+@media (max-width: 768px) {
+    .about-page {
+        padding: 80px 20px 60px;
+    }
 
-.about-hero__contacts {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 12px;
-}
+    .about-content h1 {
+        font-size: 26px;
+    }
 
-.contact-icon {
-	width: 32px;
-	height: 32px;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	background: transparent;
-	border: none;
-	cursor: pointer;
-}
-
-.contact-icon img {
-	width: 32px;
-	height: 32px;
-	object-fit: contain;
-}
-
-.about-hero__visual {
-	display: flex;
-	justify-content: center;
-}
-
-.avatar-card {
-	position: relative;
-	width: 220px;
-	aspect-ratio: 1 / 1;
-	border-radius: calc(var(--about-radius) + 12px);
-	overflow: hidden;
-	background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(14, 165, 233, 0.08));
-	border: 1px solid rgba(255, 255, 255, 0.65);
-	box-shadow: 0 30px 60px rgba(15, 23, 42, 0.22);
-}
-
-.avatar-card__glow {
-	position: absolute;
-	inset: 0;
-	background: radial-gradient(circle at 30% 30%, rgba(37, 99, 235, 0.25), transparent 45%),
-				radial-gradient(circle at 80% 20%, rgba(14, 165, 233, 0.18), transparent 40%);
-	filter: blur(0px);
-	z-index: 0;
-}
-
-.avatar-card__img {
-	position: relative;
-	z-index: 1;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
-/* QQ 弹窗 */
-.qq-modal {
-	position: fixed;
-	inset: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	opacity: 0;
-	pointer-events: none;
-	transition: opacity 180ms ease;
-	z-index: 999;
-}
-
-.qq-modal.is-open {
-	opacity: 1;
-	pointer-events: auto;
-}
-
-.qq-modal__backdrop {
-	position: absolute;
-	inset: 0;
-	background: rgba(15, 23, 42, 0.45);
-}
-
-.qq-modal__card {
-	position: relative;
-	background: rgba(255, 255, 255, 0.96);
-	border-radius: calc(var(--about-radius) + 4px);
-	padding: 28px 28px 24px;
-	box-shadow: 0 24px 64px rgba(15, 23, 42, 0.30);
-	border: 1px solid var(--about-border);
-	width: min(420px, 88vw);
-	z-index: 1;
-}
-
-.qq-modal__close {
-	position: absolute;
-	top: 12px;
-	right: 12px;
-	width: 32px;
-	height: 32px;
-	border: 1px solid var(--about-border);
-	border-radius: 50%;
-	background: #fff;
-	cursor: pointer;
-	font-size: 18px;
-	line-height: 1;
-	color: var(--about-text);
-}
-
-.qq-modal__body {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 14px;
-}
-
-.qq-modal__qr {
-	width: 240px;
-	height: 240px;
-	object-fit: contain;
-	border-radius: 12px;
-	border: 1px solid var(--about-border);
-}
-
-.qq-modal__text {
-	margin: 0;
-	color: var(--about-muted);
-	font-size: 15px;
-}
-
-/* 响应式 */
-@media (max-width: 960px) {
-	.about-page {
-		padding: 64px 20px;
-	}
-
-	.about-hero {
-		padding: 48px;
-	}
-
-	.about-hero__grid {
-		grid-template-columns: 1fr;
-		gap: 32px;
-	}
-
-	.about-hero__visual {
-		order: -1;
-	}
-
-	.about-hero__copy {
-		text-align: center;
-	}
-
-	.about-hero__contacts {
-		justify-content: center;
-	}
-
-	.about-hero__title {
-		font-size: 38px;
-	}
-
-	.about-hero__subtitle {
-		font-size: 17px;
-	}
-
-	.avatar-card {
-		width: 200px;
-	}
-}
-
-@media (max-width: 640px) {
-	.about-hero {
-		padding: 32px 24px;
-	}
-
-	.avatar-card {
-		width: 180px;
-	}
+    .about-content p,
+    .social-links {
+        font-size: 16px;
+    }
 }
