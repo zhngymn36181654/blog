@@ -1,8 +1,4 @@
 #  Blog Theme
-一个菜鸟，完全依赖ChatGPT，将gstyle主题改造成类似apple newsroom风格的主题。
-由于缺乏前端基础知识的学习，个人开发效率极低，故希望广大开发者一起参与。
-
----
 
 ## 📁 项目结构（Theme Layout）
 ```

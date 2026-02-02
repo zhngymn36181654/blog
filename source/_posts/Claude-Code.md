@@ -7,9 +7,6 @@ categories:
 - 技术笔记
 cover: claudecode.png
 ---
-
-# Claude Code
-
 ## 安装Claude Code
 
 环境windows

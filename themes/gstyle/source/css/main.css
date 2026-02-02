@@ -1,42 +1,30 @@
 /* ==================================================
    Apple Newsroom Style – main.css (Clean Version)
-   Works with: nav.ejs + index.ejs + post.ejs
    ================================================== */
 
 /* ---------- Design Tokens ---------- */
 :root {
   --bg-color: #f5f5f7;
   --card-bg: #ffffff;
-
   --text-primary: #1d1d1f;
   --text-secondary: #86868b;
-
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text",
-    "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-display: "SF Pro Display", "SF Pro Text",
-    "Helvetica Neue", Helvetica, Arial, sans-serif;
-
-  --content-width: 980px;     /* 内容宽度 */
-  --content-padding-x: 22px;  /* 两侧 padding */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --content-width: 980px;
+  --content-padding-x: 22px;
   --grid-gap: 28px;
-
   --radius-lg: 28px;
   --radius-md: 20px;
-
-  --shadow-card: 0 2px 4px rgba(0, 0, 0, 0.04),
-    0 4px 12px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 2px 4px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
 /* ---------- Global Reset ---------- */
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
 
-html,
-body {
+html, body {
   margin: 0;
   padding: 0;
 }
@@ -56,8 +44,7 @@ a {
   text-decoration: none;
 }
 
-ul,
-li {
+ul, li {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -69,8 +56,7 @@ img {
 }
 
 /* ==================================================
-   1. NAVIGATION – Desktop & Mobile
-   nav.ejs 使用的 .ac-ln-* 系列
+   1. NAVIGATION
    ================================================== */
 
 .ac-ln-shell {
@@ -84,14 +70,10 @@ img {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* 2. 特例状态（仅在 Archive 页面）：
-   因为 Archive 页面有筛选器需要吸顶，所以 Nav 必须“让位”滚走 */
 body.page-archive .ac-ln-shell {
-  position: relative !important; /* 强制覆盖，让它随页面滚走 */
-  /* 其他样式继承上面的，不需要重写 */
+  position: relative !important;
 }
 
-/* 宽度 & 对齐：与正文、卡片完全一致 */
 .ac-ln-wrapper {
   width: 100%;
   max-width: var(--content-width);
@@ -111,7 +93,6 @@ body.page-archive .ac-ln-shell {
   position: relative;
 }
 
-/* 左侧 Blog 标题 */
 .ac-ln-title a {
   font-size: 21px;
   font-weight: 600;
@@ -119,7 +100,6 @@ body.page-archive .ac-ln-shell {
   line-height: 52px;
 }
 
-/* 右侧菜单（桌面） */
 .ac-ln-menu {
   display: flex;
   align-items: center;
@@ -132,7 +112,7 @@ body.page-archive .ac-ln-shell {
   gap: 28px;
 }
 
-.ac-ln-menu-items-desktop  {
+.ac-ln-menu-items-desktop {
   display: flex;
   align-items: center;
 }
@@ -157,7 +137,6 @@ body.page-archive .ac-ln-shell {
   color: #06c;
 }
 
-/* 桌面端 Search 胶囊按钮（带 .is-search 类） */
 .ac-ln-menu-item.is-search .ac-ln-menu-link {
   display: inline-flex;
   align-items: center;
@@ -174,7 +153,6 @@ body.page-archive .ac-ln-shell {
   background-color: #d2d2d7;
 }
 
-/* 默认隐藏移动端相关元素 */
 .ac-ln-actions,
 .ac-ln-menu-tray,
 .ac-ln-menucta,
@@ -182,21 +160,15 @@ body.page-archive .ac-ln-shell {
   display: none;
 }
 
-/* -------------------------------
-   MOBILE NAV (max-width: 768px)
-   ------------------------------- */
 @media (max-width: 768px) {
-  /* 标题稍微缩小，避免挤压右侧 */
   .ac-ln-title a {
     font-size: 19px;
   }
 
-  /* 桌面菜单隐藏 */
   .ac-ln-menu-items-desktop {
     display: none !important;
   }
 
-  /* 显示右侧移动端 actions（菜单 + 搜索） */
   .ac-ln-actions {
     display: flex !important;
     position: absolute;
@@ -213,7 +185,6 @@ body.page-archive .ac-ln-shell {
     align-items: center;
   }
 
-  /* 移动端搜索胶囊 */
   .ac-ln-search-capsule {
     display: flex;
     align-items: center;
@@ -233,8 +204,6 @@ body.page-archive .ac-ln-shell {
     margin-left: 4px;
   }
 
-
-  /* 按钮触控区域 */
   .ac-ln-menucta {
     display: flex !important;
     align-items: center;
@@ -247,7 +216,6 @@ body.page-archive .ac-ln-shell {
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* Chevron SVG 容器 */
   .ac-ln-menucta-chevron {
     display: flex;
     align-items: center;
@@ -256,16 +224,13 @@ body.page-archive .ac-ln-shell {
     height: 16px;
   }
 
-  /* SVG 本体 */
   .ac-ln-chevron-svg {
     width: 16px;
     height: 9px;
     stroke-width: 1.6px;
     overflow: visible;
   }
-  /* =========================================
-     全屏菜单 (Full Screen Overlay) - 布局精修版
-     ========================================= */
+
   .ac-ln-menu-tray {
     display: block !important;
     position: fixed;
@@ -273,15 +238,11 @@ body.page-archive .ac-ln-shell {
     left: 0;
     width: 100vw;
     height: calc(100vh - 52px);
-    
     background: rgba(255, 255, 255, 0.97);
     backdrop-filter: saturate(180%) blur(60px);
     -webkit-backdrop-filter: saturate(180%) blur(60px);
-    
-    /* 修正点：减小顶部内边距，让选项靠近导航栏 */
-    padding: 24px 40px; 
+    padding: 24px 40px;
     box-sizing: border-box;
-    
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s step-end;
@@ -299,8 +260,7 @@ body.page-archive .ac-ln-shell {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    /* 修正点：保持紧凑的垂直间距 */
-    gap: 20px; 
+    gap: 20px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -311,17 +271,12 @@ body.page-archive .ac-ln-shell {
     font-weight: 600;
     color: #1d1d1f;
     text-decoration: none;
-    line-height: 1.1; /* 紧凑行高 */
+    line-height: 1.1;
     display: block;
     width: 100%;
-    
-    /* 初始状态：位移距离稍微加大一点，增加滑入感 */
     opacity: 0;
     transform: translateY(-25px);
-    
-    /* 慢速物理曲线：更优雅 */
-    transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1),
-                transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1), transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
   }
 
   .ac-ln-menu-tray .local-nav-link.revealed {
@@ -329,16 +284,13 @@ body.page-archive .ac-ln-shell {
     transform: translateY(0);
   }
 
-  /* 遮罩层 (隐藏) */
   .ac-ln-overlay {
     display: none;
   }
-
-
 }
 
 /* ==================================================
-   2. INDEX PAGE – Everydayfeed Grid (index.ejs)
+   2. INDEX PAGE
    ================================================== */
 
 .newsroom-main {
@@ -359,7 +311,6 @@ body.page-archive .ac-ln-shell {
   gap: var(--grid-gap);
 }
 
-/* 基础卡片外观 */
 .newsroom-card {
   background: var(--card-bg);
   border-radius: var(--radius-md);
@@ -374,7 +325,6 @@ body.page-archive .ac-ln-shell {
   color: inherit;
 }
 
-/* 图片区 */
 .newsroom-card__media {
   position: relative;
   overflow: hidden;
@@ -385,13 +335,10 @@ body.page-archive .ac-ln-shell {
   height: 100%;
   display: block;
   object-fit: cover;
-
   opacity: 0.92;
   transform: scale(1);
   transform-origin: center;
-  transition:
-    transform 400ms cubic-bezier(0.4, 0, 0.25, 1),
-    opacity 1000ms cubic-bezier(0.4, 0, 0.25, 1);
+  transition: transform 400ms cubic-bezier(0.4, 0, 0.25, 1), opacity 1000ms cubic-bezier(0.4, 0, 0.25, 1);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -401,9 +348,6 @@ body.page-archive .ac-ln-shell {
   }
 }
 
-
-
-/* 文字区 */
 .newsroom-card__body {
   padding: 20px 24px 24px;
 }
@@ -427,9 +371,7 @@ body.page-archive .ac-ln-shell {
   color: var(--text-secondary);
 }
 
-/* ---------- Desktop Grid (≥1024px) ---------- */
 @media (min-width: 1024px) {
-  /* Hero：独占一行，左右结构（图左文右） */
   .card-hero {
     grid-column: span 6;
     border-radius: var(--radius-lg);
@@ -453,11 +395,11 @@ body.page-archive .ac-ln-shell {
   }
 
   .card-hero .newsroom-card__body {
-    flex: 3;                       /* 保持 Apple Newsroom 文字区宽度比例 */
+    flex: 3;
     display: flex;
     flex-direction: column;
-    justify-content: center;       /* 垂直居中，苹果 Newsroom 风 */
-    padding: 32px 32px;            /* 更大的留白 */
+    justify-content: center;
+    padding: 32px 32px;
   }
 
   .card-hero .newsroom-card__tag {
@@ -471,29 +413,25 @@ body.page-archive .ac-ln-shell {
   }
 
   .card-hero .newsroom-card__date {
-    margin-top: auto;              /* 日期压到正文块底部 */
+    margin-top: auto;
     font-size: 17px;
     color: #6e6e73;
   }
 
-  /* Secondary：2 列布局（每个占 3 列） */
   .card-secondary {
     grid-column: span 3;
   }
 
-  /* Standard：3 列布局（每个占 2 列） */
   .card-standard {
     grid-column: span 2;
   }
 
-  /* 默认图片比例，让卡片高度更统一 */
   .card-secondary .newsroom-card__media,
   .card-standard .newsroom-card__media {
     aspect-ratio: 16 / 9;
   }
 }
 
-/* ---------- Tablet (735px ~ 1023px)：2 列 ---------- */
 @media (min-width: 735px) and (max-width: 1023px) {
   .everydayfeed-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -514,7 +452,6 @@ body.page-archive .ac-ln-shell {
   }
 }
 
-/* ---------- Mobile (≤734px)：1 列 ---------- */
 @media (max-width: 734px) {
   .everydayfeed {
     padding: 0 12px;
@@ -545,125 +482,243 @@ body.page-archive .ac-ln-shell {
 }
 
 /* ==================================================
-   3. ARTICLE PAGE (post.ejs) – 基础版
+   3. ARTICLE PAGE
    ================================================== */
-/* === Full-width sections (align with navbar & cards) === */
 
-.article-header-outer,
-.article-hero-outer {
-  max-width: 980px;
+body.page-post {
+  background: #fff;
+}
+
+.page-post .container.content {
+  max-width: 800px;
   margin: 0 auto;
-  padding: 0 22px;
-}
-
-
-.newsroom-article {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 0 22px 60px;
-}
-
-
-.article-hero {
-  width: 100%;
-  border-radius: 28px;
-  overflow: hidden;
-  margin: 0 0 48px;
-}
-
-.article-hero img {
-  width: 100%;
-  display: block;
-  object-fit: cover;
-}
-
-.article-content {
-  font-size: 18px;
-  line-height: 1.6;
+  padding: 40px 20px 60px;
 }
 
 .article-header {
-  text-align: left;
-  max-width: 700px;
-  margin: 0 auto 48px;
-  padding-top: 40px;
-}
-
-.article-meta-category {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-}
-
-.article-meta-date {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin: 4px auto 16px;
+  border-bottom: 1px solid #e5e5e5;
+  margin: 0 0 32px 0;
 }
 
 .article-title {
-  font-family: var(--font-display);
-  font-size: 42px;
-  line-height: 1.15;
+  font-size: 2.5em;
   font-weight: 700;
-  color: var(--text-primary);
+  line-height: 1.2;
+  color: #1d1d1f;
+  margin: 0 0 4px 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
 }
 
-@media (max-width: 734px) {
-  .article-header-outer,
-  .article-hero-outer {
-    padding: 0 16px;
-  }
+.article-meta {
+  font-size: 0.9em;
+  color: #86868b;
+}
 
-  /* Article Header */
-  .article-header {
-    padding-top: 20px;
-    margin-bottom: 32px;
-    text-align: left; 
+.article-date {
+  font-weight: 500;
+}
+
+/* ==================================================
+   4. Article Content Typography
+   ================================================== */
+
+.typora-content {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #1d1d1f;
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+.typora-content h1,
+.typora-content h2,
+.typora-content h3,
+.typora-content h4,
+.typora-content h5,
+.typora-content h6 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #1d1d1f;
+}
+
+.typora-content h1 {
+  font-size: 2em;
+  font-weight: 700;
+  margin-top: 0;
+}
+
+.typora-content h2 {
+  font-size: 1.5em;
+}
+
+.typora-content h3 {
+  font-size: 1.25em;
+}
+
+.typora-content h4 {
+  font-size: 1em;
+}
+
+.typora-content h5 {
+  font-size: 0.875em;
+}
+
+.typora-content h6 {
+  font-size: 0.85em;
+  color: #86868b;
+}
+
+.typora-content p {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.typora-content a {
+  color: #06c;
+  text-decoration: none;
+}
+
+.typora-content a:hover {
+  text-decoration: underline;
+}
+
+.typora-content ul,
+.typora-content ol {
+  padding-left: 2em;
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.typora-content ul ul,
+.typora-content ul ol,
+.typora-content ol ol,
+.typora-content ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.typora-content li {
+  margin-top: 0.25em;
+}
+
+.typora-content li > p {
+  margin-top: 16px;
+}
+
+.typora-content li + li {
+  margin-top: 0.25em;
+}
+
+.typora-content blockquote {
+  margin: 0 0 16px 0;
+  padding: 0 1em;
+  color: #86868b;
+  border-left: 4px solid #e8e8e8;
+  font-style: italic;
+}
+
+.typora-content blockquote > :first-child {
+  margin-top: 0;
+}
+
+.typora-content blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.typora-content hr {
+  height: 1px;
+  padding: 0;
+  margin: 24px 0;
+  background-color: #e8e8e8;
+  border: 0;
+}
+
+.typora-content table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  margin-top: 0;
+  margin-bottom: 30px;
+  width: 100%;
+  text-align: left;
+  border: 1px solid #e8e8e8;
+}
+
+.typora-content table th {
+  font-weight: 600;
+  background-color: #f0f0f0;
+  border: 1px solid #dedede;
+  border-bottom-color: #c9c9c9;
+  padding: 10px 15px;
+}
+
+.typora-content table td {
+  padding: 10px 15px;
+  border: 1px solid #e8e8e8;
+}
+
+.typora-content table tr {
+  background-color: #fff;
+}
+
+.typora-content table tr:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+.typora-content img {
+  max-width: 100%;
+  vertical-align: middle;
+  display: block;
+}
+
+.typora-content strong {
+  font-weight: 600;
+}
+
+.typora-content em {
+  font-style: italic;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .page-post .container.content {
+    padding: 24px 16px 40px;
   }
 
   .article-title {
-    font-size: 30px;   /* Apple Newsroom Mobile 标题尺寸 */
-    
+    font-size: 1.8em;
   }
 
-  /* Article Layout */
-  .newsroom-article {
-    max-width: none;
-    padding: 24px 16px 40px;   /* 左右留白，避免贴边 */
+  .typora-content {
+    font-size: 16px;
   }
 
-  .article-hero {
-    border-radius: 16px;
-    margin-bottom: 32px;
+  .typora-content h1 {
+    font-size: 1.75em;
   }
 
-  .article-content {
-    padding: 0 4px;              /* 给文字额外留白 */
+  .typora-content h2 {
+    font-size: 1.4em;
   }
 
-  /* 图片等 Media 元素：不能撑破容器 */
-  .article-content img,
-  .article-content figure,
-  .article-content pre,
-  .article-content code,
-  .article-content blockquote,
-  .article-content table {
-    max-width: 100%;
-    width: 100%;
-    box-sizing: border-box;
-    margin-left: auto;
-    margin-right: auto;
+  .typora-content h3 {
+    font-size: 1.2em;
+  }
+
+  .typora-content table {
+    font-size: 14px;
+  }
+
+  .typora-content table th,
+  .typora-content table td {
+    padding: 6px 10px;
   }
 }
 
-
-
-
 /* ==================================================
-   4. Pagination
+   5. Pagination
    ================================================== */
 
 .pagination {
@@ -691,43 +746,149 @@ body.page-archive .ac-ln-shell {
 }
 
 /* ==================================================
-   5.Footer — Apple Newsroom Inspired (Centered Layout)
-================================================== */
+   6. Footer
+   ================================================== */
 
 .footer {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;            /* 核心：让内容水平居中 */
+  align-items: center;
   justify-content: center;
-
   margin: 80px 0 60px;
-  padding: 0 var(--content-padding-x);
-
-  color: var(--text-secondary);
-  font-size: 13px;
 }
 
-.footer-inner {
-  max-width: var(--content-width); /* 与卡片 / 文章保持一致 */
-  width: 100%;
+/* ==================================================
+   Code Block Styling - Boris Cherny Style
+   ================================================== */
+
+/* Code blocks - Boris Cherny Style */
+.typora-content figure.highlight {
+  border: 1px solid #e8e8e8;
+  border-radius: 3px;
+  margin: 0 0 16px 0;
+  overflow: hidden;
+  background-color: #f8f8f8;
 }
 
-.footer-line {
-  margin: 4px 0;
-  text-align: center;              /* 文本居中 (Newsroom footer风格) */
+.typora-content figure.highlight pre {
+  margin: 0;
+  background-color: #f8f8f8;
+  padding: 8px 12px;
+  font-size: 15px;
+  line-height: 1.5;
+  font-family: "SFMono-Regular", Consolas, monospace;
 }
 
-/* 链接 hover 效果 */
-.footer-line a {
-  color: #06c;
-  text-decoration: none;
+.typora-content figure.highlight table,
+.typora-content figure.highlight td,
+.typora-content figure.highlight code {
+  background-color: #f8f8f8;
+  border: none;
+  padding: 0;
+  margin: 0;
 }
 
-.footer-line a:hover {
-  text-decoration: underline;
+/* Inline code */
+.typora-content code {
+  background-color: #f8f8f8;
+  font-size: 15px;
+  border: 1px solid #e8e8e8;
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-family: "SFMono-Regular", Consolas, monospace;
 }
 
+.typora-content pre code {
+  border: none;
+  padding: 0;
+}
 
+/* Syntax Highlighting - GitHub Light */
+.typora-content .hljs-comment,
+.typora-content .hljs-quote {
+  color: #6a737d;
+  font-style: italic;
+}
 
+.typora-content .hljs-keyword,
+.typora-content .hljs-selector-tag,
+.typora-content .hljs-subst {
+  color: #d73a49;
+}
 
+.typora-content .hljs-number,
+.typora-content .hljs-literal,
+.typora-content .hljs-variable,
+.typora-content .hljs-template-variable,
+.typora-content .hljs-tag .hljs-attr {
+  color: #005cc5;
+}
+
+.typora-content .hljs-string,
+.typora-content .hljs-doctag {
+  color: #032f62;
+}
+
+.typora-content .hljs-title,
+.typora-content .hljs-section,
+.typora-content .hljs-selector-id {
+  color: #6f42c1;
+  font-weight: bold;
+}
+
+.typora-content .hljs-type,
+.typora-content .hljs-class .hljs-title {
+  color: #6f42c1;
+}
+
+.typora-content .hljs-tag,
+.typora-content .hljs-name,
+.typora-content .hljs-attribute {
+  color: #22863a;
+  font-weight: normal;
+}
+
+.typora-content .hljs-regexp,
+.typora-content .hljs-link {
+  color: #005cc5;
+}
+
+.typora-content .hljs-symbol,
+.typora-content .hljs-bullet {
+  color: #005cc5;
+}
+
+.typora-content .hljs-built_in,
+.typora-content .hljs-builtin-name {
+  color: #005cc5;
+}
+
+.typora-content .hljs-meta {
+  color: #22863a;
+}
+
+.typora-content .hljs-deletion {
+  background-color: #ffeef0;
+}
+
+.typora-content .hljs-addition {
+  background-color: #e6ffed;
+}
+
+.typora-content .hljs-emphasis {
+  font-style: italic;
+}
+
+.typora-content .hljs-strong {
+  font-weight: bold;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .typora-content figure.highlight pre,
+  .typora-content .highlight pre,
+  .typora-content code {
+    font-size: 14px;
+  }
+}

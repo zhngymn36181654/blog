@@ -1,63 +1,14 @@
-<main class="article-main">
+<!-- Article Header -->
+<header class="article-header">
+  <h1 class="article-title"><%- page.title %></h1>
+  <div class="article-meta">
+    <time class="article-date" datetime="<%= page.date.toISOString() %>">
+      <%= date(page.date, 'YYYY-MM-DD') %>
+    </time>
+  </div>
+</header>
 
-  <!-- Header block (full width 980px) -->
-  <section class="article-header-outer">
-    <header class="article-header">
-      <div class="article-meta-category"><%= page.categories.data[0].name %></div>
-      <div class="article-meta-date">
-        <%= date(page.date, 'YYYY 年 M 月 D 日') %>
-      </div>
-      <h1 class="article-title"><%= page.title %></h1>
-      <span id="busuanzi_value_page_pv">Loading...</span> 次阅读
-
-    </header>
-  </section>
-
-  <!-- Hero block (full width 980px) -->
-  <% if (page.cover) { %>
-    <section class="article-hero-outer">
-      <figure class="article-hero">
-        <img src="<%- config.root + page.path + page.cover %>" alt="<%= page.title %>">
-      </figure>
-    </section>
-  <% } %>
-
-  <!-- Content block (700px) -->
-  <section class="newsroom-article">
-    <div class="article-content">
-      <%- page.content %>
-    </div>
-  </section>
-
+<!-- Article Content -->
+<main class="typora-content">
+  <%- page.content %>
 </main>
-
-<script>
-  var articleId = "/" + "<%= page.path %>";
-  var title = "<%- page.title %>";
-  var path = articleId;
-
-  fetch("https://api.lostround.xyz/view-count/" + encodeURIComponent(articleId) + "/visit", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ title: title, path: path })
-  })
-  .then(async (res) => {
-    const text = await res.text();
-    if (!res.ok) throw new Error("HTTP " + res.status + " " + text);
-    return JSON.parse(text);
-  })
-  .then((data) => {
-    document.getElementById("busuanzi_value_page_pv").innerText = data.views;
-  })
-  .catch((err) => {
-    console.error("view-count error:", err);
-    document.getElementById("busuanzi_value_page_pv").innerText = "统计失败";
-  });
-</script>
-
-
-
-
-
-
-
