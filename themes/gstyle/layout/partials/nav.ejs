@@ -4,7 +4,7 @@
 
       <!-- Left Title -->
       <span class="ac-ln-title">
-        <a href="<%- url_for('/') %>"><%= config.title || 'Blog' %></a>
+        <div id="facehash-avatar-container"></div>
       </span>
 
       <!-- Main Menu Container -->
@@ -12,6 +12,7 @@
 
         <!-- Desktop Horizontal Menu -->
         <ul class="ac-ln-menu-items ac-ln-menu-items-desktop">
+          <li class="ac-ln-menu-item"><a class="ac-ln-menu-link" href="/">Home</a></li>
           <li class="ac-ln-menu-item"><a class="ac-ln-menu-link" href="<%- url_for('/archives') %>">Archive</a></li>
           <li class="ac-ln-menu-item"><a class="ac-ln-menu-link" href="<%- url_for('/about') %>">About</a></li>
           <li class="ac-ln-menu-item is-search"><a class="ac-ln-menu-link" href="<%- url_for('/search') %>">Search</a></li>
@@ -88,6 +89,9 @@
         <!-- Mobile Dropdown Tray -->
         <div class="ac-ln-menu-tray">
           <ul class="ac-ln-menu-items">
+            <li class="ac-ln-menu-item">
+              <a class="ac-ln-menu-link local-nav-link" href="/">Home</a>
+            </li>
             <li class="ac-ln-menu-item">
               <a class="ac-ln-menu-link local-nav-link" href="<%- url_for('/archives') %>">Archive</a>
             </li>

@@ -100,6 +100,18 @@ body.page-archive .ac-ln-shell {
   line-height: 52px;
 }
 
+/* Facehash Avatar */
+.ac-ln-title {
+  display: flex;
+  align-items: center;
+}
+
+#facehash-avatar-container {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
 .ac-ln-menu {
   display: flex;
   align-items: center;
@@ -161,6 +173,11 @@ body.page-archive .ac-ln-shell {
 }
 
 @media (max-width: 768px) {
+  #facehash-avatar-container {
+    width: 36px;
+    height: 36px;
+  }
+
   .ac-ln-title a {
     font-size: 19px;
   }
@@ -891,4 +908,9 @@ body.page-post {
   .typora-content code {
     font-size: 14px;
   }
+}
+
+/* Facehash spinner animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
