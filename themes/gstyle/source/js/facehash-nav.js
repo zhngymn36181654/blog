@@ -53,7 +53,16 @@
     console.log('Bundle globals available:', { Facehash, React, ReactDOM });
 
     function FacehashAvatar() {
-      const [index, setIndex] = React.useState(0);
+      const [index, setIndex] = React.useState(() => Math.floor(Math.random() * faceNames.length));
+
+      // Auto-switch emoji every 5 seconds
+      React.useEffect(() => {
+        const interval = setInterval(() => {
+          setIndex(prev => (prev + 1) % faceNames.length);
+        }, 5000); // 5 seconds
+
+        return () => clearInterval(interval); // Cleanup on unmount
+      }, []);
 
       const handleClick = function() {
         console.log('Click detected, current index:', index);

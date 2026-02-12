@@ -17,6 +17,8 @@
     "esbuild": "^0.27.3",
     "facehash": "^0.0.7",
     "hexo": "^7.3.0",
+    "hexo-asset-image": "^1.0.0",
+    "hexo-asset-link": "^2.3.1",
     "hexo-filter-pathfix": "^0.1.2",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^2.0.0",
