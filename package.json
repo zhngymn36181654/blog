@@ -12,7 +12,7 @@
     "version": "7.3.0"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.25.3",
+    "@modelcontextprotocol/sdk": "^1.27.0",
     "@modelcontextprotocol/server-puppeteer": "^2025.5.12",
     "esbuild": "^0.27.3",
     "facehash": "^0.0.7",
