@@ -6,7 +6,7 @@ tags:
 - Codex
 categories:
 - 技术笔记
-cover: codex.png
+cover: Coral_amazon-bedrock-general-availability.webp
 ---
 
 

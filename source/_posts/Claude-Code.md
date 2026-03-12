@@ -5,7 +5,7 @@ tags:
 - Claude Code
 categories:
 - 技术笔记
-cover: claudecode.png
+cover: test_Sky_claude-for-chrome.webp
 ---
 ## 安装Claude Code
 

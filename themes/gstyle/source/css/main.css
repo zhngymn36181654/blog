@@ -602,11 +602,18 @@ body.page-post {
   text-decoration: underline;
 }
 
-.typora-content ul,
+.typora-content ul {
+  padding-left: 2em;
+  margin-top: 0;
+  margin-bottom: 16px;
+  list-style: disc;
+}
+
 .typora-content ol {
   padding-left: 2em;
   margin-top: 0;
   margin-bottom: 16px;
+  list-style: decimal;
 }
 
 .typora-content ul ul,
@@ -619,6 +626,7 @@ body.page-post {
 
 .typora-content li {
   margin-top: 0.25em;
+  list-style: inherit;
 }
 
 .typora-content li > p {

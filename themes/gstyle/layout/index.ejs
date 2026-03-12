@@ -2,7 +2,10 @@
   const posts = page.posts ? page.posts.toArray() : [];
 
   function coverFor(post) {
-    if (post.cover) return config.root + post.path + post.cover;
+    if (post.cover) {
+      const dir = post.path.replace(/index\.html$/, '');
+      return config.root + dir + post.cover;
+    }
     if (post.hero_image) return post.hero_image;
     if (theme.newsroom && theme.newsroom.default_cover) return theme.newsroom.default_cover;
     return '';
