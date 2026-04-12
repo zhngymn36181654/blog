@@ -152,11 +152,11 @@ posts.forEach(post => {
     } 
     %>
     <a href="<%= url_for(post.path) %>" class="archive-item">
-        <% 
-            let thumb = '/img/placeholder.png'; 
+        <%
+            let thumb = url_for('/img/placeholder.png');
             if (post.cover) {
                 const dir = post.path.replace(/index\.html$/, '');
-                thumb = '/' + dir + post.cover;
+                thumb = url_for('/' + dir + post.cover);
             }
         %>
         <div class="item-img">

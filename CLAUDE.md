@@ -1,19 +1,9 @@
 # CLAUDE.md
 
-## ⚠️ Environment (Required)
-
-```bash
-conda activate blog
-```
-
-**Activate this conda environment before running any commands.**
-
----
-
 ## Common Commands
 
 ```bash
-hexo clean && hexo g && hexo s
+npx hexo clean && npx hexo g && npx hexo s
 # Clean cache → Generate static files → Start server
 # Access at: http://localhost:4000
 ```
