@@ -1,8 +1,8 @@
 /**
- * Liquid Glass Effect — Navigation Bar
+ * Liquid Glass Effect — Navigation Bar + Archive Page
  *
- * Applies Apple-style Liquid Glass refraction to the .ac-ln-shell nav bar
- * using SVG displacement maps + backdrop-filter: url().
+ * Applies Apple-style Liquid Glass refraction using SVG displacement maps
+ * + backdrop-filter: url().
  *
  * Only activates on desktop Chrome/Edge. Safari/Firefox/mobile get no effect.
  *
@@ -15,17 +15,12 @@
 
   // ── Browser detection ──────────────────────────────────────
   function supportsBackdropFilterUrl() {
-    // Chrome and Edge support backdrop-filter: url() with SVG filters.
-    // Safari supports backdrop-filter but NOT with url() referencing SVG filters.
-    // Firefox has limited/partial support.
-    // We test by creating an element and checking computed style behavior.
     try {
       var el = document.createElement('div');
       el.style.backdropFilter = "url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22></svg>#f')";
       document.body.appendChild(el);
       var cs = getComputedStyle(el).backdropFilter;
       document.body.removeChild(el);
-      // If the browser keeps the url() value it likely supports it
       return cs && cs.indexOf('url') !== -1;
     } catch (e) {
       return false;
@@ -33,9 +28,6 @@
   }
 
   // ── Displacement map generation ────────────────────────────
-  // Generates an SVG displacement map as a data URI.
-  // The map uses R/G channels to indicate X/Y displacement at edges.
-  // Interior is neutral gray (#808080) = zero displacement.
   function getDisplacementMap(width, height, radius, depth) {
     var svg =
       '<svg height="' + height + '" width="' + width + '" ' +
@@ -70,8 +62,6 @@
   }
 
   // ── SVG filter generation ──────────────────────────────────
-  // Creates a complete SVG filter definition and returns it as a data URI
-  // with a fragment identifier pointing to the filter element.
   function getDisplacementFilter(filterId, width, height, radius, depth, strength) {
     var mapHref = getDisplacementMap(width, height, radius, depth);
     var svg =
@@ -93,56 +83,73 @@
     return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg) + '#' + filterId;
   }
 
-  // ── Init ───────────────────────────────────────────────────
-  function initLiquidGlass() {
-    // Skip mobile
-    if (window.innerWidth < 768) return;
+  // ── Generic: apply liquid glass to an element ──────────────
+  function applyToElement(el, filterId, radius, depth, strength) {
+    var rect = el.getBoundingClientRect();
+    var w = Math.round(rect.width);
+    var h = Math.round(rect.height);
+    if (w < 1 || h < 1) return;
 
-    // Skip unsupported browsers
-    if (!supportsBackdropFilterUrl()) return;
+    var filterUri = getDisplacementFilter(filterId, w, h, radius, depth, strength);
 
+    el.style.backdropFilter =
+      'url("' + filterUri + '") blur(0.25px) contrast(1.1) brightness(1.05) saturate(1.15)';
+    el.style.webkitBackdropFilter = el.style.backdropFilter;
+    el.classList.add('liquid-glass-active');
+  }
+
+  // ── 1. Navigation Bar ──────────────────────────────────────
+  function initNav() {
     var nav = document.querySelector('.ac-ln-shell');
     if (!nav) return;
 
     var filterId = 'liquid-glass-nav';
-    var filterUri = null;
 
-    function applyFilter() {
-      var rect = nav.getBoundingClientRect();
-      var w = Math.round(rect.width);
-      var h = Math.round(rect.height);
-      if (w < 1 || h < 1) return;
-
-      // Nav params: subtle effect, height=52px, radius ≈ half height
-      var radius = 26;
-      var depth = 6;
-      var strength = 30;
-
-      filterUri = getDisplacementFilter(filterId, w, h, radius, depth, strength);
-
-      // Apply: keep blur for glassmorphism base, add refraction filter
-      nav.style.backdropFilter =
-        'url("' + filterUri + '") blur(0.25px) contrast(1.1) brightness(1.05) saturate(1.15)';
-      nav.style.webkitBackdropFilter = nav.style.backdropFilter;
-      nav.classList.add('liquid-glass-active');
+    function apply() {
+      applyToElement(nav, filterId, 26, 6, 30);
     }
 
-    // Initial application
-    applyFilter();
+    apply();
 
-    // Re-apply on resize
     var resizeTimeout;
-    var resizeObserver = new ResizeObserver(function () {
+    new ResizeObserver(function () {
       clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(applyFilter, 100);
-    });
-    resizeObserver.observe(nav);
+      resizeTimeout = setTimeout(apply, 100);
+    }).observe(nav);
   }
 
-  // Run when DOM is ready
+  // ── 2. Archive Filter Bar ──────────────────────────────────
+  function initArchiveFilter() {
+    var filter = document.querySelector('.archive-filter');
+    if (!filter) return;
+
+    var filterId = 'liquid-glass-archive-filter';
+
+    function apply() {
+      applyToElement(filter, filterId, 20, 5, 25);
+    }
+
+    apply();
+
+    var resizeTimeout;
+    new ResizeObserver(function () {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(apply, 100);
+    }).observe(filter);
+  }
+
+  // ── Init everything ────────────────────────────────────────
+  function init() {
+    if (window.innerWidth < 768) return;
+    if (!supportsBackdropFilterUrl()) return;
+
+    initNav();
+    initArchiveFilter();
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initLiquidGlass);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    initLiquidGlass();
+    init();
   }
 })();
