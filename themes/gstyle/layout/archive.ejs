@@ -63,6 +63,7 @@
                     </div>
                 </div>
             </div>
+            <button class="filter-reset-btn" id="filter-reset-btn" style="display:none;">重置</button>
         </div>
 
         <button class="mobile-filter-trigger" id="mobile-filter-btn">
@@ -133,25 +134,26 @@
 
 <section class="archive-content">
 <%
-const posts = page.posts;
+const posts = site.posts.sort('date', -1);
 let currentYear = null;
 let currentMonth = null;
 
 posts.forEach(post => {
     const year = post.date.year();
     const month = post.date.month() + 1;
+    const category = post.categories.data[0]?.name || '未分类';
 %>
     <% if (year !== currentYear || month !== currentMonth) { %>
         <% if (currentYear !== null) { %> </div></div> <% } %>
         <div class="archive-month-block">
             <h2 class="archive-month"><%= month %> 月 <%= year %></h2>
             <div class="archive-list">
-    <%  
+    <%
         currentYear = year;
         currentMonth = month;
-    } 
+    }
     %>
-    <a href="<%= url_for(post.path) %>" class="archive-item">
+    <a href="<%= url_for(post.path) %>" class="archive-item" data-category="<%= category %>" data-year="<%= year %>" data-month="<%= month %>">
         <%
             let thumb = url_for('/img/placeholder.png');
             if (post.cover) {
@@ -172,7 +174,6 @@ posts.forEach(post => {
     <% if (currentYear !== null) { %> </div></div> <% } %>
 </section>
 
-<%- partial('partials/pagination') %>
 <script src="<%- url_for('/js/archive.js') %>"></script>
 </body>
 </html>
