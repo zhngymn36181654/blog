@@ -8,6 +8,10 @@
     --nav-search-offset: 90px;
 }
 
+body.page-archive {
+    overflow-y: scroll;
+}
+
 /* ------------------------------
    1. Filter Bar (Desktop Default)
 --------------------------------*/

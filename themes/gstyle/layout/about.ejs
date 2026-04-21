@@ -1,24 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <%- partial('partials/head') %>
-    <title>About</title>
-    <link rel="stylesheet" href="<%- url_for('/css/about.css') %>">
-</head>
+<main class="resume-page">
+    <p class="resume-mobile-text">我叫郑一鸣</p>
+    <div class="resume-content">
 
-<body class="page-about">
+        <!-- Header: 名字 + 联系方式 + 照片 -->
+        <section class="resume-header">
+            <div class="resume-header-left">
+                <h1 class="resume-name">郑一鸣</h1>
+                <p class="resume-contact">
+                    <span class="resume-contact-item">
+                        3486362780@qq.com
+                    </span>
+                    <span class="resume-contact-divider">|</span>
+                    <span class="resume-contact-item">
+                        +86 19577306056
+                    </span>
+                </p>
+            </div>
+            <img class="resume-photo" src="<%- url_for('/img/profile-photo.jpg') %>" alt="郑一鸣">
+        </section>
 
-    <main class="about-page">
-        <div class="about-content">
-            <p>郑一鸣，03年，安徽淮南人，现就读于安徽建筑大学。没事瞎捣鼓 OpenClaw🦞，搓两把 CS:GO。</p>
+        <!-- 教育背景 -->
+        <section class="resume-section">
+            <h2 class="resume-section-title">教育背景</h2>
+            <div class="resume-entry">
+                <h3 class="resume-entry-title">阜阳师范大学 </h3>
+                <ul class="resume-list">
+                    <li>计算机二级</li>
+                    <li>英语四级</li>
+                </ul>
+            </div>
+            <div class="resume-entry">
+                <h3 class="resume-entry-title">安徽建筑大学 </h3>
+            </div>
+        </section>
 
-            <p>I'm Zheng Yiming, born in 2003 in Huainan, Anhui, and currently studying at Anhui Jianzhu University. In my free time you can find me tinkering with OpenClaw🦞 and playing CS:GO.</p>
+        <!-- 技能 -->
+        <section class="resume-section">
+            <h2 class="resume-section-title">技能</h2>
+            <ul class="resume-list">
+                <li>基本使用 AI Agent 工具（OpenClaw，Claude Code）</li>
+                <li>编程语言 HTML5，CSS3，JavaScript</li>
+                <li>编程语言 Python（PyTorch，NumPy，Pandas，Matplotlib）</li>
+                <li>基本使用 Git</li>
+                <li>基本使用 Ubuntu</li>
+                <li>基本使用 MySQL 和 SQL 查询</li>
+            </ul>
+        </section>
 
-            <p class="social-links">
-                Find me on <a href="https://x.com/zhngymn36181654" target="_blank" rel="noreferrer noopener">X</a> and <a href="https://github.com/zhngymn36181654" target="_blank" rel="noreferrer noopener">Github</a>.
-            </p>
+        <!-- Download PDF -->
+        <div class="resume-download">
+            <button class="resume-download-btn" onclick="window.print()">下载 PDF</button>
         </div>
-    </main>
 
-</body>
-</html>
+    </div>
+</main>

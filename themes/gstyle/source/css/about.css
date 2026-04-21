@@ -1,63 +1,217 @@
-/* Minimal About Page - Boris Cherny style */
+/* ==================================================
+   About / Resume Page — Apple Newsroom Style
+   ================================================== */
 
 body.page-about {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: #F4F2EE;
-    color: #1a1a1a;
+    background: #fff;
+    color: #1d1d1f;
     margin: 0;
-    line-height: 1.6;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.about-page {
-    max-width: 680px;
+/* ---------- Resume Page ---------- */
+
+.resume-page {
+    max-width: 794px;
     margin: 0 auto;
-    padding: 120px 24px 80px;
+    padding-top: 40px;
 }
 
-.about-content h1 {
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 1.3;
-    margin: 0 0 24px;
-    color: #1a1a1a;
+/* ---------- Header ---------- */
+
+.resume-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e8e8ed;
 }
 
-.about-content p {
-    font-size: 17px;
-    line-height: 1.7;
-    margin: 0 0 20px;
-    color: #333;
+.resume-header-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 160px;
 }
 
-.social-links {
-    font-size: 17px;
-    line-height: 1.7;
-    color: #333;
+.resume-name {
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+    margin: 16px 0 0;
+    color: #1d1d1f;
 }
 
-.social-links a {
-    color: #0066cc;
+.resume-contact {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 14px;
+    color: #86868b;
+    margin: 0;
+}
+
+.resume-contact-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.resume-contact-item a {
+    color: #06c;
     text-decoration: none;
-    transition: color 0.15s ease;
 }
 
-.social-links a:hover {
-    color: #004499;
+.resume-contact-item a:hover {
     text-decoration: underline;
 }
 
-/* Responsive */
+.resume-contact-item svg {
+    color: #86868b;
+    flex-shrink: 0;
+}
+
+.resume-contact-divider {
+    color: #d2d2d7;
+}
+
+.resume-photo {
+    width: 160px;
+    height: 160px;
+    border-radius: 20px;
+    object-fit: cover;
+    margin-left: 32px;
+    flex-shrink: 0;
+}
+
+/* ---------- Sections ---------- */
+
+
+
+.resume-section + .resume-section {
+    border-top: 1px solid #e8e8ed;
+}
+
+.resume-section-title {
+    color: #0066cc;
+
+}
+
+/* ---------- Entries ---------- */
+
+.resume-entry {
+    margin-bottom: 20px;
+}
+
+.resume-entry:last-child {
+    margin-bottom: 0;
+}
+
+.resume-entry-title {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0 0 4px;
+    color: #1d1d1f;
+}
+
+
+/* ---------- List ---------- */
+
+.resume-list {
+    margin: 8px 0 0;
+    padding-left: 20px;
+    list-style: disc;
+}
+
+.resume-list li {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #424245;
+    margin-bottom: 4px;
+}
+
+.resume-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* ---------- Download Button ---------- */
+
+.resume-download {
+    padding-top: 32px;
+    text-align: center;
+}
+
+.resume-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    background: #06c;
+    border: none;
+    border-radius: 980px;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.resume-download-btn:hover {
+    background: #0055b3;
+}
+
+/* ---------- Print Styles ---------- */
+
+@media print {
+    .ac-ln-shell,
+    .footer,
+    .resume-download {
+        display: none !important;
+    }
+
+    .resume-content {
+        display: block !important;
+    }
+
+    .resume-mobile-text {
+        display: none !important;
+    }
+
+    body.page-about {
+        background: #fff;
+    }
+
+    .resume-page {
+        padding: 0;
+        max-width: 100%;
+    }
+
+    .resume-header,
+    .resume-section,
+    .resume-section + .resume-section {
+        border-color: #ccc;
+    }
+}
+
+/* ---------- Mobile ---------- */
+
+.resume-mobile-text {
+    display: none;
+}
+
 @media (max-width: 768px) {
-    .about-page {
-        padding: 80px 20px 60px;
+    .resume-content {
+        display: none;
     }
 
-    .about-content h1 {
-        font-size: 26px;
-    }
-
-    .about-content p,
-    .social-links {
-        font-size: 16px;
+    .resume-mobile-text {
+        display: block;
+        padding: 40px 24px;
+        font-size: 17px;
+        color: #1d1d1f;
     }
 }

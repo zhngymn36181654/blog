@@ -35,4 +35,7 @@
 
         </meta>
     <script src="<%- url_for('js/liquid-glass.js') %>" defer></script>
+    <% if (page.layout === 'about') { %>
+    <link rel="stylesheet" href="<%- url_for('css/about.css') %>">
+    <% } %>
     </head>
