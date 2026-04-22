@@ -4,7 +4,9 @@
 
       <!-- Left Title -->
       <span class="ac-ln-title">
-        <div id="facehash-avatar-container"></div>
+        <a href="<%- url_for('/') %>">
+          <img class="nav-flag" src="<%- url_for('/img/flag-cn.svg') %>" alt="Home">
+        </a>
       </span>
 
       <!-- Main Menu Container -->
@@ -15,10 +17,9 @@
           <li class="ac-ln-menu-item"><a class="ac-ln-menu-link" href="<%- url_for('/') %>">Home</a></li>
           <li class="ac-ln-menu-item"><a class="ac-ln-menu-link" href="<%- url_for('/archives') %>">Archive</a></li>
           <li class="ac-ln-menu-item"><a class="ac-ln-menu-link" href="<%- url_for('/about') %>">About</a></li>
-          <li class="ac-ln-menu-item is-search"><a class="ac-ln-menu-link" href="<%- url_for('/search') %>">Search</a></li>
         </ul>
 
-        <!-- Mobile Actions: Menu Toggle + Search Capsule + Tray -->
+        <!-- Mobile Actions: Menu Toggle + Tray -->
         <div class="ac-ln-actions">
           <!-- Mobile Menu Toggle + Chevron -->
           <div class="ac-ln-action ac-ln-action-menucta">
@@ -68,23 +69,6 @@
               </span>
             </label>
           </div>
-
-
-          <!-- Mobile Search Capsule -->
-          <div class="ac-ln-action ac-ln-action-search">
-            <a class="ac-ln-search-capsule" href="<%- url_for('/search') %>">
-              <span class="ac-ln-search-icon">
-                <svg viewBox="0 0 15 15" width="15" height="15" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.5" fill="none" />
-                  <line x1="10.5" y1="10.5" x2="14" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                </svg>
-              </span>
-              <span class="ac-ln-search-text">搜索</span>
-            </a>
-          </div>
-
-
-
         </div>
         <!-- Mobile Dropdown Tray -->
         <div class="ac-ln-menu-tray">
