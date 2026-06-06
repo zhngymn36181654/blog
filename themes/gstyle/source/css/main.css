@@ -8,8 +8,12 @@
   --card-bg: #ffffff;
   --text-primary: #1d1d1f;
   --text-secondary: #86868b;
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-display: "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
+    Helvetica, Arial, sans-serif;
+  --font-display:
+    "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
   --content-width: 980px;
   --content-padding-x: 22px;
   --grid-gap: 28px;
@@ -19,12 +23,15 @@
 }
 
 /* ---------- Global Reset ---------- */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
@@ -44,7 +51,8 @@ a {
   text-decoration: none;
 }
 
-ul, li {
+ul,
+li {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -55,28 +63,86 @@ img {
   display: block;
 }
 
+header {
+  container-type: scroll-state;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
 /* ==================================================
    1. NAVIGATION
    ================================================== */
 
 .ac-ln-shell {
-  position: sticky;
-  top: 0;
-  z-index: 999;
-  height: 52px;
-  background: rgba(255, 255, 255, 0.8);
+  width: 100%;
+  position: relative;
+  background: rgba(255, 255, 255, 0.72);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.11);
+  transition:
+    max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    margin 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-body.page-archive .ac-ln-shell {
+@container scroll-state(stuck: top) {
+  .ac-ln-shell {
+    max-width: calc(var(--content-width) - 2 * var(--content-padding-x));
+    margin: 0 auto;
+    border-radius: 0.75rem;
+    background: rgb(255 255 255 / 0.78);
+    box-shadow:
+      inset 0 0.5px 0 rgba(255, 255, 255, 0.3),
+      0 1px 3px rgba(0, 0, 0, 0.08);
+    transform: translateY(20px);
+    border-bottom: none;
+  }
+}
+
+/* ── Liquid Glass 增强状态 ────────────────────────────── */
+.ac-ln-shell.liquid-glass-active {
+  /* 近乎全透明 — 让 SVG filter 的折射效果直接可见 */
+  background: rgba(255, 255, 255, 0.06) !important;
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.4),
+    0 1px 3px rgba(0, 0, 0, 0.06),
+    0 8px 24px rgba(0, 0, 0, 0.04);
+  border-bottom-color: rgba(0, 0, 0, 0.06);
+}
+
+@container scroll-state(stuck: top) {
+  .ac-ln-shell.liquid-glass-active {
+    background: rgba(255, 255, 255, 0.08) !important;
+    box-shadow:
+      inset 0 0.5px 0 rgba(255, 255, 255, 0.3),
+      inset 0 0 0 0.5px rgba(255, 255, 255, 0.4),
+      0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+}
+
+@media (max-width: 767px) {
+  .ac-ln-shell.liquid-glass-active {
+    backdrop-filter: saturate(180%) blur(20px) !important;
+    -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+}
+
+body.page-archive > header {
   position: relative !important;
 }
 
 .ac-ln-wrapper {
+  position: relative;
+  z-index: 1;
   width: 100%;
-  max-width: var(--content-width);
+  max-width: 1380px;
   margin: 0 auto;
   height: 52px;
   padding: 0 var(--content-padding-x);
@@ -104,7 +170,6 @@ body.page-archive .ac-ln-shell {
 .nav-flag {
   width: 40px;
   height: auto;
-
 }
 
 .ac-ln-menu {
@@ -217,14 +282,18 @@ body.page-archive .ac-ln-shell {
     box-sizing: border-box;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s step-end;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s step-end;
     z-index: 1;
   }
 
   .ac-ln-menu.ac-ln-menu-open .ac-ln-menu-tray {
     opacity: 1;
     visibility: visible;
-    transition: opacity 0.3s ease, visibility 0.3s step-start;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s step-start;
   }
 
   .ac-ln-menu-tray .ac-ln-menu-items {
@@ -248,7 +317,9 @@ body.page-archive .ac-ln-shell {
     width: 100%;
     opacity: 0;
     transform: translateY(-25px);
-    transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1), transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    transition:
+      opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1),
+      transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
   }
 
   .ac-ln-menu-tray .local-nav-link.revealed {
@@ -456,7 +527,7 @@ body.page-archive .ac-ln-shell {
    ================================================== */
 
 body.page-post {
-  background: #F4F2EE;
+  background: #f4f2ee;
 }
 
 .page-post .container.content {
@@ -476,7 +547,8 @@ body.page-post {
   line-height: 1.2;
   color: #1d1d1f;
   margin: 0 0 4px 0;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
 }
 
 .article-meta {
@@ -493,7 +565,9 @@ body.page-post {
    ================================================== */
 
 .typora-content {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
   font-size: 17px;
   line-height: 1.7;
   color: #1d1d1f;
@@ -867,28 +941,5 @@ body.page-post {
   .typora-content .highlight pre,
   .typora-content code {
     font-size: 14px;
-  }
-}
-
-/* ==================================================
-   Liquid Glass — Navigation Bar
-   ================================================== */
-
-.ac-ln-shell.liquid-glass-active {
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow:
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.4),
-    0 1px 3px rgba(0, 0, 0, 0.06),
-    0 8px 24px rgba(0, 0, 0, 0.04);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-}
-
-@media (max-width: 767px) {
-  .ac-ln-shell.liquid-glass-active {
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   }
 }

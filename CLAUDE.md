@@ -28,7 +28,7 @@ npx hexo clean && npx hexo g && npx hexo s
 | `themes/gstyle/layout/` | EJS page templates |
 | `themes/gstyle/layout/partials/` | Reusable components (head, nav, pagination) |
 | `themes/gstyle/source/css/` | Stylesheets (main.css, archive.css, about.css, pagination.css) |
-| `themes/gstyle/source/js/` | Interactive features (archive.js, liquid-glass.js, nav.js) |
+| `themes/gstyle/source/js/` | Interactive features (archive.js, nav.js) |
 | `public/` | Generated static site (DO NOT edit directly) |
 
 ---
@@ -80,27 +80,8 @@ badge: FEATURED               # Custom badge (defaults to category name)
 ### JS Files
 | File | Purpose |
 |------|---------|
-| `liquid-glass.js` | SVG displacement map Liquid Glass effect (nav bar + archive filter bar) |
 | `archive.js` | Client-side DOM filtering with URL params, disabled options logic |
 | `nav.js` | Navigation: mobile menu toggle, facehash avatar |
-
----
-
-## Liquid Glass Effect
-
-Visual effect using SVG displacement maps + `backdrop-filter: url()` for Apple-style glass refraction.
-
-**Applied to:**
-- Navigation bar (`.ac-ln-shell`) — params: strength=30, depth=6, radius=26
-- Archive filter bar (`.archive-filter`) — params: strength=25, depth=5, radius=20
-
-**NOT applied to:**
-- Dropdown menus (deliberately excluded — "反人类的设计")
-- Safari/Firefox/mobile (gracefully skipped, no fallback)
-
-**Browser detection:** `supportsBackdropFilterUrl()` in `liquid-glass.js` checks Chrome/Edge support. Only activates on desktop width >= 768px.
-
-**Key file:** `themes/gstyle/source/js/liquid-glass.js`
 
 ---
 

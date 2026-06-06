@@ -155,7 +155,7 @@ posts.forEach(post => {
     %>
     <a href="<%= url_for(post.path) %>" class="archive-item" data-category="<%= category %>" data-year="<%= year %>" data-month="<%= month %>">
         <%
-            let thumb = url_for('/img/placeholder.png');
+            let thumb = url_for('/img/placeholder.svg');
             if (post.cover) {
                 const dir = post.path.replace(/index\.html$/, '');
                 thumb = url_for('/' + dir + post.cover);
