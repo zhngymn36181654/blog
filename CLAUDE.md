@@ -1,5 +1,31 @@
 # CLAUDE.md
 
+## Rule
+1. think before coding: state assumptions, don't guess. the model can't read your mind, stop hoping it will
+
+2. simplicity first: minimum code, no speculative abstractions. the moment you let Claude add "for future flexibility," you've added 200 lines you'll delete next quarter
+
+3. surgical changes: touch only what you must. don't let it improve adjacent code, that's how PRs blow up
+
+4. goal-driven execution: define success criteria upfront, loop until verified. without them Claude either loops forever or stops too early
+
+5. use the model only for judgment calls: classification, drafting, summarization, extraction. NOT routing, retries, status-code handling, deterministic transforms. if code can answer, code answers
+
+6. token budgets are not advisory: per-task 4000, per-session 30000. by message 40 of a long debug, Claude is re-suggesting fixes you rejected at message 5
+
+7. surface conflicts, don't average them: two patterns in the codebase? pick one. Claude blending them is how errors get swallowed twice
+
+8. read before you write: read exports, callers, shared utilities. Claude will happily add a duplicate function next to an identical one it never read
+
+9. tests verify intent, not just behavior: a test that can't fail when business logic changes is wrong. all 12 of Claude's tests can pass while the function returns a constant
+
+10. checkpoint every significant step: Claude finished steps 5 and 6 on top of a broken state from step 4. nobody noticed for an hour
+
+11. match the codebase conventions: class components? don't fork to hooks silently. testing patterns assumed componentDidMount, hooks broke them without surfacing
+
+12. fail loud: "completed successfully" with 14% of records silently skipped is the worst class of bug. surface uncertainty, don't hide it
+
+
 ## Common Commands
 
 ```bash

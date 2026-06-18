@@ -37,5 +37,9 @@
     <% if (page.layout === 'about') { %>
     <link rel="stylesheet" href="<%- url_for('css/about.css') %>">
     <% } %>
+    <% if (is_home()) { %>
+    <link rel="stylesheet" href="<%- url_for('css/watchface.css') %>">
+    <script src="<%- url_for('js/watchface.js') %>" defer></script>
+    <% } %>
     <script src="<%- url_for('js/liquid-glass.js') %>" defer></script>
     </head>

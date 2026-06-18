@@ -1,0 +1,61 @@
+/* =========================================================================
+   watchface.css — Apple Watch "Liquid Menu" (Debug Lv.2)
+
+   A white screen holding 271 black circles in a warped hex fisheye that you
+   drag to pan. No chassis, no frame, no crown — interaction is the point.
+   The 360×400 design space is CSS-scaled to fit the column (see watchface.js).
+   ========================================================================= */
+
+.watchface {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;            /* gap so cards don't touch the white block */
+  padding: 40px 0 64px;
+  background: #fff;            /* match the screen so its edge disappears */
+}
+
+/* Sized by JS to the scaled height; the absolutely-positioned screen fills it */
+.watchface__wrap {
+  position: relative;
+  width: 360px;
+  max-width: 100%;
+}
+
+/* The screen — fixed 360×400 design space, scaled via transform by JS */
+.watchface__screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 360px;
+  height: 400px;
+  background: #fff;
+  border-radius: 44px;
+  overflow: hidden;
+  touch-action: none;          /* drag pans instead of scrolling */
+  cursor: grab;
+  -webkit-user-select: none;
+  user-select: none;
+  transform-origin: 0 0;
+}
+
+.watchface__screen.is-dragging {
+  cursor: grabbing;
+}
+
+/* Circles live here; each is positioned/scaled by JS via transform */
+.watchface__icons {
+  position: absolute;
+  inset: 0;
+}
+
+/* A single black circle — 70px base; transform set inline by JS */
+.watchface__icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #000;
+  transform-origin: center center;
+}

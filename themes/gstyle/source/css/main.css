@@ -337,7 +337,7 @@ body.page-archive > header {
    ================================================== */
 
 .newsroom-main {
-  padding: 40px 0 80px;
+  padding: 40px 0 0;
   background: var(--bg-color);
 }
 
